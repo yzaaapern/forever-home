@@ -17,6 +17,9 @@ package foreverhome;
  */
 public interface Interact {
     
+    /*
+        METHODS
+    */
     public void givePat();
     
     public void playWithFoster();

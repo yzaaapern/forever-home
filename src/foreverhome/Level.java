@@ -18,12 +18,18 @@ package foreverhome;
  */
 public interface Level {
     
+    /*
+        CONSTANT VARIABLES
+    */
     public final int DEFAULT_LEVEL_CAP = 100;
     public final int INC_CAP = 45;
     public final int INC_EXP = 15;
     public final int DEC_EXP = 15;
     
-    public void checkLevel(int level);
+    /*
+        METHODS
+    */
+    public int checkLevelExp(int levelXP);
     
     public int incLevel();
   
