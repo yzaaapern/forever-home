@@ -21,22 +21,23 @@ public interface Level {
     /*
         CONSTANT VARIABLES
     */
-    public final int DEFAULT_LEVEL_CAP = 100;
-    public final int INC_CAP = 45;
+    public final int DEFAULT_LEVELXP_CAP = 100;
+    public final int INC_LEVELXP_CAP = 45;
     public final int INC_EXP = 15;
     public final int DEC_EXP = 15;
     
     /*
         METHODS
     */
-    public int checkLevelExp(int levelXP);
+    public boolean checkLevelForInteract(int level);
+    
+    public boolean checkLevelForIncLevel();
     
     public int incLevel();
   
-    public void incLevelExp();
+    public void incLevelXP();
     
-    public void decLevelExp();
+    public void decLevelXP();
     
-    public void resetLevelExp();
-    
+    public void resetLevelXP();
 }
