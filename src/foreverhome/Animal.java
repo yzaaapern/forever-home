@@ -150,11 +150,11 @@ public abstract class Animal implements Interact, Level{
         METHODS
     */
     
-//    public void incHunger(Food food){
-//        int inc_hunger = this.hunger + food.value;
-//        this.setHunger(inc_hunger);
-//        this.incLevelExp();
-//    }
+    public void incHunger(Food food){
+        int inc_hunger = this.hunger + food.foodValue;
+        this.setHunger(inc_hunger);
+        this.incLevelXP();
+    }
     
     public void decHunger(){
         int dec_hunger = this.hunger - Animal.DEC_STAT;
@@ -280,7 +280,7 @@ public abstract class Animal implements Interact, Level{
             this.incLevelXP();
         }
         else{
-            System.out.println("You cannot do this trick yet! " + this.name + " has yet to reach Level 7.");
+            System.out.println("You cannot do this trick yet! " + this.name + " has yet to reach Level 10.");
         }
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -290,27 +290,16 @@ public abstract class Animal implements Interact, Level{
     */
     @Override
     public boolean checkLevelForInteract(int level) {
-        if(this.level < level){
-            return false;
-        }
-        else{
-            return true;
-        }
+        return this.level >= level;
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     @Override
     public boolean checkLevelForIncLevel(){
-        if(this.happiness == this.getStatBar()
-           && this.hunger == this.getStatBar()
-           && this.hygiene == this.getStatBar()
-           && this.levelXP == this.getLevelXPBar())
-        {
-            return true;
-        }
-        else{
-            return false;
-        }
+        return (this.happiness == this.getStatBar()
+                && this.hunger == this.getStatBar()
+                && this.hygiene == this.getStatBar()
+                && this.levelXP == this.getLevelXPBar());
     }
 
     @Override
