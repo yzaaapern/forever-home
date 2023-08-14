@@ -325,42 +325,6 @@ public class Game {
             return false;
             
         }
-=======
-/**
- *
- * @author yzape
- */
-public class Game {
-    
-    private final Player player;
-    
-    public Game(Player player){
-        this.player = player;
-    }
-    
-    public Game(Player player, Animal fosterPet){
-        this.player = player;
-        this.player.fosterPet = fosterPet;
-    }
-    
-    public void displayMainMenu(){
-        
-    }
-    
-    public void displayFosterMenu(){
-        
-    }
-    
-    public void displayInteractMenu(){
-        
-    }
-    
-    public void displayFoodMenu(){
-        
-    }
-    
-    public boolean isValidInput(String input){
->>>>>>> origin/yza-branch
-        return true;
+        return false;
     }
 }
