@@ -41,4 +41,9 @@ public class Player {
     public Animal getFosterPet(){
         return this.fosterPet;
     }
+    
+    public String toString(){
+        return "Username: " + this.name + "\n" + this.fosterPet.toString();
+        
+    }
 }
