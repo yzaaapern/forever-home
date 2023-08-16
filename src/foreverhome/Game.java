@@ -15,6 +15,7 @@ public class Game {
     
     public Game(Player player){
         this.player = player;
+        this.displayFosterMenu();
         
     }
     
@@ -174,6 +175,8 @@ public class Game {
                     break;
                 case 9:
                     System.out.println("Returning back to Pet Foster Menu.");
+                    this.displayPetFosterMenu();
+//                    return;
                     break;
                 default: break;     
             }
@@ -325,6 +328,6 @@ public class Game {
             return false;
             
         }
-        return false;
+        return true;
     }
 }
