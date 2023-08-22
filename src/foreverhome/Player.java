@@ -50,7 +50,10 @@ public class Player {
         if(this.fosterPet.level == 10 && this.fosterPet.levelXP == this.fosterPet.levelXPBar){
             this.dabloons += REWARD_DABLOONS;
         }
-        this.dabloons += INC_DABLOONS;
+        if(this.fosterPet.checkLevelForIncLevel()){
+           this.dabloons += INC_DABLOONS;
+
+        }
     }
     
     public void decDabloons(Food food){

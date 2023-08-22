@@ -53,7 +53,13 @@ public abstract class Animal implements Interact, Level{
         if(happiness < 0){
             this.happiness = 0;
         }
-        this.happiness = happiness;
+        if(happiness > statBar){
+            this.happiness = statBar;
+        }
+        else{
+            this.happiness = happiness;    
+        }
+        
     }
     
     public int getHappiness(){
@@ -66,6 +72,10 @@ public abstract class Animal implements Interact, Level{
     public void setHunger(int hunger){
         if(hunger < 0){
             this.hunger = 0;
+        }
+        
+        if(hunger > statBar){
+            this.hunger = statBar;
         }
         else{
             this.hunger = hunger;
@@ -83,7 +93,15 @@ public abstract class Animal implements Interact, Level{
         if(hygiene < 0){
             this.hygiene = 0;
         }
-        this.hygiene = hygiene;
+        
+        if(hygiene > statBar){
+            this.hygiene = statBar;
+        }
+        
+        else{
+            this.hygiene = hygiene;
+
+        }
     }
     
     public int getHygiene(){
@@ -97,7 +115,15 @@ public abstract class Animal implements Interact, Level{
         if(levelXP < 0){
             this.levelXP = 0;
         }
-        this.levelXP = levelXP;
+        
+        if(levelXP > levelXPBar){
+            this.levelXP = levelXPBar;
+        }
+        
+        else{
+            this.levelXP = levelXP;
+        }
+        
     }
      
     public int getLevelXP(){
@@ -140,8 +166,13 @@ public abstract class Animal implements Interact, Level{
         OVERRIDE TOSTRING METHOD
     */
     
+    /**
+     *
+     * @return
+     */
+    @Override
     public String toString(){
-        return ("\n---------------------\n" + 
+        return ("\n---------------------\n" +
                 "FOSTER PET STATS" +
                 "\n-Foster Pet Name: " + this.name + 
                 "\n-Level: " + this.level + " and Level XP: " + this.levelXP + "/" + this.levelXPBar +
@@ -311,6 +342,7 @@ public abstract class Animal implements Interact, Level{
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         if(checkLevelForIncLevel()){
             this.resetLevelXP();
+            this.statBar += STAT_THRESHOLD;
             return this.level++;
         }
         
