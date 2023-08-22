@@ -32,6 +32,8 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
         
         System.out.println("Welcome " + this.player.getName() + " to Forever Home!");
+        System.out.println("Current Stats: ");
+        System.out.println(this.player.toString());
         System.out.println("Pick an animal that you would like to foster: ");
         System.out.println("1. Dog");
         System.out.println("2. Cat");
@@ -40,6 +42,7 @@ public class Game {
         System.out.println("5. Chicken");
         
         do{
+            System.out.print("Your choice: ");
             input = scanner.nextLine();
             
             if(input.equalsIgnoreCase("x")){
@@ -53,26 +56,31 @@ public class Game {
         
         switch(Integer.parseInt(input)){
             case 1:
+                System.out.println("You chose a dog!");
                 a = new Dog(fosterName);
                 this.player.fosterPet = a;
                 this.player.hasFosterPet = true;
                 break;
             case 2:
+                System.out.println("You chose a cat!");
                 a = new Cat(fosterName);
                 this.player.fosterPet = a;
                 this.player.hasFosterPet = true;
                 break;
             case 3: 
+                System.out.println("You chose a rat!");
                 a = new Rat(fosterName);
                 this.player.fosterPet = a;
                 this.player.hasFosterPet = true;
                 break;
             case 4: 
+                System.out.println("You chose a parrot!");
                 a = new Parrot(fosterName);
                 this.player.fosterPet = a;
                 this.player.hasFosterPet = true;
                 break;
             case 5: 
+                System.out.println("You chose a chicken!");
                 a = new Chicken(fosterName);
                 this.player.fosterPet = a;
                 this.player.hasFosterPet = true;
@@ -83,7 +91,7 @@ public class Game {
         this.displayPetFosterMenu();
     }
     public void displayPetFosterMenu(){
-        String input;
+        String input = "";
         Scanner scanner = new Scanner(System.in);
         
         System.out.println("Choose one of the following:");
@@ -113,6 +121,7 @@ public class Game {
                 default: break;     
             }
             
+            this.displayPetFosterMenu();
         }while(!this.isValidInput(input));
     }
     

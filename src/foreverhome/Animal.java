@@ -141,10 +141,14 @@ public abstract class Animal implements Interact, Level{
     */
     
     public String toString(){
-        return (this.name + ",  level: " + this.level + " and level exp: " + this.levelXP + 
-                "\nHunger: " + this.hunger + 
-                "\nHygiene: " + this.hygiene +
-                "\nHappiness: " + this.happiness);
+        return ("\n---------------------\n" + 
+                "FOSTER PET STATS" +
+                "\n-Foster Pet Name: " + this.name + 
+                "\n-Level: " + this.level + " and Level XP: " + this.levelXP + "/" + this.levelXPBar +
+                "\n-Hunger: " + this.hunger + "/" + this.statBar +
+                "\n-Hygiene: " + this.hygiene + "/" + this.statBar +
+                "\n-Happiness: " + this.happiness + "/" + this.statBar +
+                "\n---------------------\n");
     }
     /*
         METHODS

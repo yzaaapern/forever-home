@@ -10,14 +10,18 @@ package foreverhome;
  */
 public class Player {
     
+    private final int INC_DABLOONS = 10;
+    private final int REWARD_DABLOONS = 100;
     private String name;
     public Animal fosterPet;
     public boolean hasFosterPet;
+    public int dabloons;
     
     public Player(String name){
         this.setName(name);
         this.setFosterPet(null);
         this.hasFosterPet = false;
+        this.dabloons = 20;
     }
     
     public Player(String name, Animal fosterPet){
@@ -42,8 +46,21 @@ public class Player {
         return this.fosterPet;
     }
     
-    public String toString(){
-        return "Username: " + this.name + "\n" + this.fosterPet.toString();
+    public void incDabloons(){
+        if(this.fosterPet.level == 10 && this.fosterPet.levelXP == this.fosterPet.levelXPBar){
+            this.dabloons += REWARD_DABLOONS;
+        }
+        this.dabloons += INC_DABLOONS;
+    }
+    
+    public void decDabloons(Food food){
+        this.dabloons -= food.foodCost;
+        food.incFoodCount();
         
+    }
+    
+    public String toString(){
+        String displayPet = (this.hasFosterPet == true) ? this.fosterPet.toString() : "No Pet";
+        return "Username: " + this.name + "\n-------------\n" + "Dabloons: $" + this.dabloons + "\n-------------\n" + displayPet;
     }
 }
