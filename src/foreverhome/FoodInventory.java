@@ -44,7 +44,7 @@ public class FoodInventory {
         int count = 1;
         
         for(Food f : foodInventory){
-            foodInventoryOutput += count + ". " + f.toString() + "\n";
+            foodInventoryOutput += count + ". " + f.toString() + "\n---------------------";
             count++;
         }
         

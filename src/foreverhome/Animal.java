@@ -174,7 +174,7 @@ public abstract class Animal implements Interact, Level{
      */
     @Override
     public String toString(){
-        return ("\n---------------------\n" +
+        return ("---------------------\n" +
                 "FOSTER PET STATS" +
                 "\n-Foster Pet Name: " + this.name + 
                 "\n-Level: " + this.level + " and Level XP: " + this.levelXP + "/" + this.levelXPBar +

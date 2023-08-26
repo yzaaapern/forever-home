@@ -22,6 +22,7 @@ public class Game {
     public Game(Player player, Animal fosterPet){
         this.player = player;
         this.player.fosterPet = fosterPet;
+        this.player.hasFosterPet = true;
         this.displayPetFosterMenu();
     }
     
@@ -98,9 +99,10 @@ public class Game {
         int inputNum = 0;
         Scanner scanner = new Scanner(System.in);
         
-        System.out.println("------------------------------");
+        System.out.println("##############################");
         System.out.println("        PET FOSTER MENU       ");
-        System.out.println(this.player.fosterPet.toString());
+        System.out.println("##############################");
+        System.out.println(this.player.toString());
         System.out.println("Choose one of the following:");
         System.out.println("1. Feed " + this.player.fosterPet.name);
         System.out.println("2. Bathe " + this.player.fosterPet.name);

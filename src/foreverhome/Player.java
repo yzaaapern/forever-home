@@ -16,20 +16,21 @@ public class Player {
     public Animal fosterPet;
     public boolean hasFosterPet;
     public int dabloons;
-    // food inventory object/variable
-    // Add food objects
+    public FoodInventory foodInventory;
     
     public Player(String name){
         this.setName(name);
         this.setFosterPet(null);
         this.hasFosterPet = false;
         this.dabloons = 20;
+        this.foodInventory = new FoodInventory();
     }
     
-    public Player(String name, Animal fosterPet){
+    public Player(String name, Animal fosterPet, FoodInventory foodInventory){
         this.setName(name);
         this.setFosterPet(fosterPet);
         this.hasFosterPet = true;
+        this.setFoodInventory(foodInventory);
     }
     
     public void setName(String name){
@@ -48,6 +49,14 @@ public class Player {
         return this.fosterPet;
     }
     
+    public void setFoodInventory(FoodInventory foodInventory){
+        this.foodInventory = foodInventory;
+    }
+    
+    public FoodInventory getFoodInventory(){
+        return this.foodInventory;
+    }
+    
     public void incDabloons(){
         if(this.fosterPet.level == 10 && this.fosterPet.levelXP == this.fosterPet.levelXPBar){
             this.dabloons += REWARD_DABLOONS;
@@ -59,11 +68,15 @@ public class Player {
     }
     
     public void decDabloons(Food food){
-        this.dabloons -= food.foodCost;        
+        this.dabloons -= food.foodCost;
     }
     
     public String toString(){
-        String displayPet = (this.hasFosterPet == true) ? this.fosterPet.toString() : "No Pet";
-        return "Username: " + this.name + "\n-------------\n" + "Dabloons: $" + this.dabloons + "\n-------------\n" + displayPet;
+        String displayPet = (this.hasFosterPet == true) ? this.fosterPet.toString()  + this.foodInventory.toString(): "No Pet";
+        return "---------------------\n" +
+               "PLAYER STATS\n" + 
+               "Username: " + this.name + 
+               "\n-Dabloons: $" + this.dabloons + 
+               "\n---------------------\n" + displayPet;
     }
 }
