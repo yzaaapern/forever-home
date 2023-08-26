@@ -73,7 +73,7 @@ public class Food
     @Override
     public String toString()
     {
-        return "Food Name: " + this.getFoodName() + "\n\t-Hunger Value: " + this.getFoodValue() + " points \n\tCost: $" + this.getFoodCost() + "\n\tQuantity: " + this.getFoodCount();
+        return this.getFoodName() + "\n\t-Hunger Value: " + this.getFoodValue() + " points \n\t-Cost: $" + this.getFoodCost() + "\n\t-Quantity: " + this.getFoodCount();
     }
             
     
