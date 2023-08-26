@@ -53,7 +53,10 @@ public abstract class Animal implements Interact, Level{
         if(happiness < 0){
             this.happiness = 0;
         }
-        this.happiness = happiness;
+        else
+        {
+            this.happiness = happiness;
+        }
     }
     
     public int getHappiness(){
@@ -83,7 +86,10 @@ public abstract class Animal implements Interact, Level{
         if(hygiene < 0){
             this.hygiene = 0;
         }
-        this.hygiene = hygiene;
+        else
+        {
+            this.hygiene = hygiene;
+        }
     }
     
     public int getHygiene(){
@@ -334,5 +340,6 @@ public abstract class Animal implements Interact, Level{
         this.setLevelXP(0);
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
     
 }

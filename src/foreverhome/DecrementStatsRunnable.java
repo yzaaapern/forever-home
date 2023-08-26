@@ -23,12 +23,15 @@ public class DecrementStatsRunnable implements Runnable
     @Override
     public void run()
     {
+        
         // while the pet's happiness, hunger, and hygiene stats are greater than 0, it will decrement those stats.
         while(this.pet.getHappiness() > 0 || this.pet.getHunger() > 0 || this.pet.getHygiene() > 0)
         {
             this.pet.decHappiness();
             this.pet.decHunger();
             this.pet.decHygiene();
+            System.out.println(this.pet.toString() + "\n");
+            
             try
             {
                 Thread.sleep(TIME_INTERVAL);
