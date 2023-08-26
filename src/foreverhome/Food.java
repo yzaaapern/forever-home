@@ -65,15 +65,9 @@ public class Food
         }
     }
     
-    public void incFoodCount()
+    private void incFoodCount()
     {
         this.foodCount += INC_FOOD_COUNT;
-    }
-    
-    public int buyFood(Food food)
-    {
-        this.incFoodCount();
-        return this.getFoodCount();
     }
     
     @Override

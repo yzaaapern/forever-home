@@ -38,6 +38,15 @@ public class ForeverHome {
         int dabloons = 0;
         ArrayList<Food> playerInventory = new ArrayList<Food>();
         
+        // Main menu
+        
+        // Main menu variables
+        String userName = "";
+        
+        System.out.println("Enter your username: ");
+        userName = scanner.next();
+        System.out.println("Welcome " + userName);
+        
         
     }
     

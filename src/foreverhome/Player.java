@@ -59,9 +59,7 @@ public class Player {
     }
     
     public void decDabloons(Food food){
-        this.dabloons -= food.foodCost;
-        food.incFoodCount();
-        
+        this.dabloons -= food.foodCost;        
     }
     
     public String toString(){
