@@ -51,8 +51,11 @@ public class Game {
             
         }while(!isValidInput(input));
         
-        System.out.print("Give them a name: ");
-        fosterName = scanner.nextLine();
+        do{
+            System.out.print("Give them a name: ");
+            fosterName = scanner.nextLine();
+        }while(fosterName == "" || fosterName == " ");
+        
         
         switch(Integer.parseInt(input)){
             case 1:
@@ -91,9 +94,11 @@ public class Game {
         this.displayPetFosterMenu();
     }
     public void displayPetFosterMenu(){
-        String input = "";
+        String input;
+        int inputNum = 0;
         Scanner scanner = new Scanner(System.in);
         
+        System.out.println(this.player.fosterPet.toString());
         System.out.println("Choose one of the following:");
         System.out.println("1. Feed " + this.player.fosterPet.name);
         System.out.println("2. Bathe " + this.player.fosterPet.name);
@@ -108,7 +113,16 @@ public class Game {
                 break;
             }
             
-            switch(Integer.parseInt(input)){
+           try{
+               inputNum = Integer.parseInt(input);
+           }
+           catch(NumberFormatException ex){
+               if(input == "" || input == " "){
+                   input = scanner.nextLine();
+               }
+           }
+            
+            switch(inputNum){
                 case 1:
                     this.displayFoodMenu();
                     break;
@@ -135,6 +149,7 @@ public class Game {
     
     public void displayInteractMenu(){
         String input;
+        int inputNum = 0;
         Scanner scanner = new Scanner(System.in);
         
         System.out.println("Play with " + this.player.fosterPet.name + " or teach them some new tricks!");
@@ -157,7 +172,16 @@ public class Game {
                 break;
             }
             
-            switch(Integer.parseInt(input)){
+            try{
+               inputNum = Integer.parseInt(input);
+           }
+           catch(NumberFormatException ex){
+               if(input == "" || input == " "){
+                   input = scanner.nextLine();
+               }
+           }
+            
+            switch(inputNum){
                 case 1:
                     this.player.fosterPet.givePat();
                     if(this.player.fosterPet.checkLevelForIncLevel()){
@@ -225,7 +249,6 @@ public class Game {
                 case 9:
                     System.out.println("Returning back to Pet Foster Menu.");
                     this.displayPetFosterMenu();
-//                    return;
                     break;
                 default: break;
             }
@@ -236,6 +259,12 @@ public class Game {
     }
     
     public void buyFoodMenu(){
+        String input;
+        int inputNum;
+        Scanner scanner = new Scanner(System.in);
+        
+
+        
         switch(checkFosterPet(this.player.fosterPet)){
             case 1:
                 // Buy dog related foods

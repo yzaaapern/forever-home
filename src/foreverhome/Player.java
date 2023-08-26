@@ -16,6 +16,8 @@ public class Player {
     public Animal fosterPet;
     public boolean hasFosterPet;
     public int dabloons;
+    // food inventory object/variable
+    // Add food objects
     
     public Player(String name){
         this.setName(name);

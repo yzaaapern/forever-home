@@ -193,6 +193,11 @@ public abstract class Animal implements Interact, Level{
     
     public void decHunger(){
         int dec_hunger = this.hunger - Animal.DEC_STAT;
+//        this.setHunger(dec_hunger);
+        if(dec_hunger < 0){
+            dec_hunger = 0;
+        }
+        
         this.setHunger(dec_hunger);
     }
     
