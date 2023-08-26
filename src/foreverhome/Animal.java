@@ -53,6 +53,11 @@ public abstract class Animal implements Interact, Level{
         if(happiness < 0){
             this.happiness = 0;
         }
+        
+        else if(happiness > statBar){
+            this.happiness = statBar;
+        }
+        
         else
         {
             this.happiness = happiness;
@@ -71,7 +76,7 @@ public abstract class Animal implements Interact, Level{
             this.hunger = 0;
         }
         
-        if(hunger > statBar){
+        else if(hunger > statBar){
             this.hunger = statBar;
         }
         else{
@@ -90,6 +95,11 @@ public abstract class Animal implements Interact, Level{
         if(hygiene < 0){
             this.hygiene = 0;
         }
+        
+        else if(hygiene > statBar){
+            this.hygiene = statBar;
+        }
+        
         else
         {
             this.hygiene = hygiene;
@@ -185,11 +195,6 @@ public abstract class Animal implements Interact, Level{
     
     public void decHunger(){
         int dec_hunger = this.hunger - Animal.DEC_STAT;
-//        this.setHunger(dec_hunger);
-        if(dec_hunger < 0){
-            dec_hunger = 0;
-        }
-        
         this.setHunger(dec_hunger);
     }
     
