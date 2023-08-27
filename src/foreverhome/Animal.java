@@ -15,7 +15,6 @@ public abstract class Animal implements Interact, Level{
     */
     public static final int INC_STAT = 10;
     public static final int DEC_STAT = 5;
-    public static final int STAT_THRESHOLD = 25;
     public static int DEFAULT_STAT = 100;
     
     protected String name;
@@ -50,18 +49,7 @@ public abstract class Animal implements Interact, Level{
         HAPPINESS: SET AND GET METHOD
     */
     public void setHappiness(int happiness){
-        if(happiness < 0){
-            this.happiness = 0;
-        }
-        
-        else if(happiness > statBar){
-            this.happiness = statBar;
-        }
-        
-        else
-        {
-            this.happiness = happiness;
-        }
+        this.happiness = happiness;
     }
     
     public int getHappiness(){
@@ -72,16 +60,7 @@ public abstract class Animal implements Interact, Level{
         HUNGER: SET AND GET METHOD
     */
     public void setHunger(int hunger){
-        if(hunger < 0){
-            this.hunger = 0;
-        }
-        
-        else if(hunger > statBar){
-            this.hunger = statBar;
-        }
-        else{
-            this.hunger = hunger;
-        }
+        this.hunger = hunger;
         
     }
     public int getHunger(){
@@ -92,18 +71,7 @@ public abstract class Animal implements Interact, Level{
         HYGIENE: SET AND GET METHOD
     */
     public void setHygiene(int hygiene){
-        if(hygiene < 0){
-            this.hygiene = 0;
-        }
-        
-        else if(hygiene > statBar){
-            this.hygiene = statBar;
-        }
-        
-        else
-        {
-            this.hygiene = hygiene;
-        }
+        this.hygiene = hygiene;
     }
     
     public int getHygiene(){
@@ -114,18 +82,7 @@ public abstract class Animal implements Interact, Level{
         LEVELXP: SET AND GET METHOD
     */
      public void setLevelXP(int levelXP){
-        if(levelXP < 0){
-            this.levelXP = 0;
-        }
-        
-        if(levelXP > levelXPBar){
-            this.levelXP = levelXPBar;
-        }
-        
-        else{
-            this.levelXP = levelXP;
-        }
-        
+         this.levelXP = levelXP; 
     }
      
     public int getLevelXP(){
@@ -188,37 +145,80 @@ public abstract class Animal implements Interact, Level{
     */
     
     public void incHunger(Food food){
-        int inc_hunger = this.hunger + food.foodValue;
-        this.setHunger(inc_hunger);
+        int inc_hunger = this.hunger + food.getFoodValue();
+        if(inc_hunger > DEFAULT_STAT)
+        {
+            this.setHunger(DEFAULT_STAT);
+        }
+        else
+        {
+            this.setHunger(inc_hunger);
+        }
         this.incLevelXP();
     }
     
     public void decHunger(){
         int dec_hunger = this.hunger - Animal.DEC_STAT;
-        this.setHunger(dec_hunger);
+        if(dec_hunger < 0)
+        {
+            this.setHunger(0);
+        }
+        else
+        {
+            this.setHunger(dec_hunger);
+        }
+        
     }
     
     public void incHappiness(){
         int inc_happiness = this.happiness + Animal.INC_STAT;
-        this.setHappiness(inc_happiness);
+        if(inc_happiness > DEFAULT_STAT)
+        {
+            this.setHappiness(DEFAULT_STAT);
+        }
+        else
+        {
+            this.setHappiness(inc_happiness);
+        }
         this.incLevelXP();
     }
     
     public void decHappiness(){
         int dec_happiness = this.happiness - Animal.DEC_STAT;
-        this.setHappiness(dec_happiness);
+        if(dec_happiness < 0)
+        {
+            this.setHappiness(0);
+        }
+        else
+        {
+            this.setHappiness(dec_happiness);
+        }
     }
     
     public void incHygiene(){
         int inc_hygiene = this.hygiene + Animal.INC_STAT;
-        this.setHygiene(inc_hygiene);
+        if(inc_hygiene > DEFAULT_STAT)
+        {
+            this.setHygiene(DEFAULT_STAT);
+        }
+        else
+        {
+            this.setHygiene(inc_hygiene);
+        }
         this.incLevelXP();
-
     }
     
     public void decHygiene(){
         int dec_hygiene = this.hygiene - Animal.DEC_STAT;
-        this.setHygiene(dec_hygiene);
+        if(dec_hygiene < 0)
+        {
+            this.setHygiene(0);
+        }
+        else
+        {
+            this.setHygiene(dec_hygiene);
+        }
+
     }
     
     /*
@@ -344,7 +344,7 @@ public abstract class Animal implements Interact, Level{
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         if(checkLevelForIncLevel()){
             this.resetLevelXP();
-            this.statBar += STAT_THRESHOLD;
+            this.setLevelXPBar(levelXPBar += Level.INC_LEVELXP_CAP);
             return this.level++;
         }
         
@@ -356,14 +356,28 @@ public abstract class Animal implements Interact, Level{
     @Override
     public void incLevelXP() {
         int inc_levelXP = this.levelXP + Level.INC_EXP;
-        this.setLevelXP(inc_levelXP);
+        if(inc_levelXP > this.levelXPBar)
+        {
+            this.setLevelXP(this.levelXPBar);
+        }
+        else
+        {
+            this.setLevelXP(inc_levelXP);
+        }
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void decLevelXP() {
         int dec_levelXP = this.levelXP - Level.DEC_EXP;
-        this.setLevelXP(dec_levelXP);
+        if(dec_levelXP < 0)
+        {
+            this.setLevelXP(0);
+        }
+        else
+        {
+            this.setLevelXP(dec_levelXP);
+        }
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -372,6 +386,6 @@ public abstract class Animal implements Interact, Level{
         this.setLevelXP(0);
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
     
 }

@@ -12,6 +12,9 @@ import java.util.Scanner;
 public class Game {
     
     private final Player player;
+    public LevelUpRunnable lur;
+    public DecrementStatsRunnable dsr;
+    public Thread petLevelUpThread, petDecrementStatsThread;
     
     public Game(Player player){
         this.player = player;
@@ -90,6 +93,14 @@ public class Game {
                 break;
             default: break;
         }
+        
+        this.lur = new LevelUpRunnable(this.player.getFosterPet());
+        this.petLevelUpThread = new Thread(this.lur);
+        this.petLevelUpThread.start();
+        
+        this.dsr = new DecrementStatsRunnable(this.player);
+        this.petDecrementStatsThread = new Thread(this.dsr);
+        this.petDecrementStatsThread.start();
         
         this.displayPetFosterMenu();
     }
@@ -422,5 +433,10 @@ public class Game {
             
         }
         return true;
+    }
+    
+    public void endGameMessage()
+    {
+        System.out.println("Thank you " + this.player.getName() + " for playing ForeverHome, until next time! ");
     }
 }

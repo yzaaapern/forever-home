@@ -19,22 +19,37 @@ public class Test2LevelUp
         Thread catLevelUpThread = new Thread(lur);
         catLevelUpThread.start();
         
-        cat.incHunger(rainbowTreat);
-        cat.incHunger(rainbowTreat);
-        cat.incHunger(rainbowTreat);
-        cat.incHunger(rainbowTreat);
-        cat.incHunger(rainbowTreat);
-        System.out.println(cat);
-        cat.incHunger(rainbowTreat);
-        cat.incHunger(rainbowTreat);
-        System.out.println(cat);
-        cat.incHunger(rainbowTreat);
-        cat.incHunger(rainbowTreat);
-        System.out.println(cat);
-        cat.incHunger(rainbowTreat);
-        cat.incHunger(rainbowTreat);
         System.out.println(cat);
         
-        cat.incHappiness();
+        for(int i = 0; i < 11; i++)
+        {
+            cat.incHappiness();
+        }
+        for(int i = 0; i < 11; i++)
+        {
+            cat.incHygiene();
+        }
+        
+        for(int i = 0; i < 11; i++)
+        {
+            cat.incHunger(rainbowTreat);
+        }
+        
+        System.out.println(cat);
+        
+                for(int i = 0; i < 11; i++)
+        {
+            cat.incHappiness();
+        }
+        for(int i = 0; i < 11; i++)
+        {
+            cat.incHygiene();
+        }
+        
+        for(int i = 0; i < 11; i++)
+        {
+            cat.incHunger(rainbowTreat);
+        }
+
     }
 }

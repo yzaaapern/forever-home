@@ -7,35 +7,49 @@ package foreverhome;
 /**
  *
  * @author annga
+ * Name: Ann Del Rosario
+ * Student ID: 21143100
+ * Date Created: 
+ * 
  */
+
 public class LevelUpRunnable implements Runnable
 {
-    // instance variables
-    public Animal pet;
-    public final int MAX_LEVEL = 10;
-    public final int TIME_INTERVAL = 5000;
+    // Instance variables
+    public Animal fosterPet;
+    public final int MAX_LEVEL = 10; // Highest level cap for a foster pet
+    public final int TIME_INTERVAL = 5000; // time interval between level up checks 
     
-    // constructor
+    // Default Constructor
+    public LevelUpRunnable()
+    {
+        this.fosterPet = null;
+    }
+    
+    // Constructor
     public LevelUpRunnable(Animal animal)
     {
-        this.pet = animal;
+        this.fosterPet = animal;
     }
+    
+    // METHODS
+    
+    /* run method
+    
+    Parameters: None
+    Return: None
+    Description: While the foster pet is under the max level, the thread will run and check if the pet is able to level up
+    */
     
     @Override
     public void run()
     {
-        while(pet.getLevel() < MAX_LEVEL)
+        while(fosterPet.getLevel() < MAX_LEVEL)
         {
-            
-            if(pet.checkLevelForIncLevel())
-            {
-                pet.incLevel();
-                System.out.println(pet);
-            }
+            fosterPet.incLevel();
             try
             {
                 Thread.sleep(TIME_INTERVAL);
-                System.out.println(pet);
             }
             catch(InterruptedException e)
             {

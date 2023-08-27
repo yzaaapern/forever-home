@@ -59,7 +59,7 @@ public class Player {
     }
     
     public void decDabloons(Food food){
-        this.dabloons -= food.foodCost;        
+        this.dabloons -= food.getFoodCost();        
     }
     
     public String toString(){

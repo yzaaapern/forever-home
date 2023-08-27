@@ -7,34 +7,46 @@ package foreverhome;
 /**
  *
  * @author annga
+ * Name: Ann Del Rosario
+ * Student ID: 21143100
+ * Date Created: 
+ * 
  */
+
 public class DecrementStatsRunnable implements Runnable
 {
-    // instance variables
-    public Animal pet;
-    public final int TIME_INTERVAL = 60000; // time interval between stat decrements is 1 minute
+    // Instance variables
+    public Player player;
+    public final int TIME_INTERVAL = 5000; // time interval between stat decrements is 1 minute
     
-    // constructor
-    public DecrementStatsRunnable(Animal animal)
+    // Constructor
+    public DecrementStatsRunnable(Player player)
     {
-        this.pet = animal;
+        this.player = player;
     }
+    
+    // METHODS
+    
+    /* run method
+    
+    Parameters: None
+    Return: None
+    Description: While the player has a foster pet, the foster pet's stats (happiness, hunger, and hygiene) will decrease over time. 
+    */
     
     @Override
     public void run()
     {
-        
-        // while the pet's happiness, hunger, and hygiene stats are greater than 0, it will decrement those stats.
-        while(this.pet.getHappiness() > 0 || this.pet.getHunger() > 0 || this.pet.getHygiene() > 0)
+        // while the player has a foster pet, the player's foster pet's happiness, hunger, and hygience will decrease over time
+        while(this.player.hasFosterPet == true)
         {
-            this.pet.decHappiness();
-            this.pet.decHunger();
-            this.pet.decHygiene();
-            System.out.println(this.pet.toString() + "\n");
+            this.player.getFosterPet().decHappiness(); 
+            this.player.getFosterPet().decHunger();
+            this.player.getFosterPet().decHygiene();
             
             try
             {
-                Thread.sleep(TIME_INTERVAL);
+                Thread.sleep(TIME_INTERVAL); // thread will sleep for the allocated time interval
             }
             catch(InterruptedException e)
             {
