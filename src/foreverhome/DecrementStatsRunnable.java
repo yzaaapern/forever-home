@@ -31,7 +31,9 @@ public class DecrementStatsRunnable implements Runnable
     
     Parameters: None
     Return: None
-    Description: While the player has a foster pet, the foster pet's stats (happiness, hunger, and hygiene) will decrease over time. 
+    Description: While the player has a foster pet, the stats (happiness, hunger, and hygiene) and level xp will decrease over time. 
+    If the foster pet's stats are all equal to 0, the pet will lose some xp because it is not being taken care of.
+    Otherwise, if the foster pet has even some stats greater than 0, these stats will decrease overtime to simulate a real pet.
     */
     
     @Override
@@ -40,9 +42,19 @@ public class DecrementStatsRunnable implements Runnable
         // while the player has a foster pet, the player's foster pet's happiness, hunger, and hygience will decrease over time
         while(this.player.hasFosterPet == true)
         {
-            this.player.getFosterPet().decHappiness(); 
-            this.player.getFosterPet().decHunger();
-            this.player.getFosterPet().decHygiene();
+            // pet is being neglected, so the level xp will decrease
+            if(this.player.getFosterPet().getHappiness() == 0 && this.player.getFosterPet().getHunger() == 0 && this.player.getFosterPet().getHygiene() == 0)
+            {
+                this.player.getFosterPet().decLevelXP();
+            }
+            
+            // pet is not being neglected, stats will decrease because it will still get less happy/hungry/dirty.
+            else
+            {
+                this.player.getFosterPet().decHappiness(); 
+                this.player.getFosterPet().decHunger();
+                this.player.getFosterPet().decHygiene();
+            }
             
             try
             {
