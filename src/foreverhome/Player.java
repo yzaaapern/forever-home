@@ -68,15 +68,26 @@ public class Player {
     }
     
     public void decDabloons(Food food){
-        this.dabloons -= food.foodCost;
+        if(food == null){
+            return;
+        }
+        
+        if(this.dabloons == 0){
+            System.out.println("You do not have enough money to buy " + food.foodName);
+            return;
+        }
+        
+        else{
+            this.dabloons -= food.foodCost;
+        }
     }
     
     public String toString(){
-        String displayPet = (this.hasFosterPet == true) ? this.fosterPet.toString()  + this.foodInventory.toString(): "No Pet";
+        String displayPet = (this.hasFosterPet == true) ? this.fosterPet.toString() + this.foodInventory.toString(): "No Pet";
         return "---------------------\n" +
                "PLAYER STATS\n" + 
                "Username: " + this.name + 
-               "\n-Dabloons: $" + this.dabloons + 
+               "\nDabloons: $" + this.dabloons + 
                "\n---------------------\n" + displayPet;
     }
 }

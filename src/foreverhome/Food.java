@@ -61,11 +61,17 @@ public class Food
     {
         if(this.getFoodCount()> 0)
         {
+            System.out.println("Nice! " + this.foodName + " increases their hunger by " + this.foodValue + " points.");
             this.foodCount--;
+        }
+        
+        else if(this.getFoodCount() <= 0){
+            System.out.println("You do not have any " + this.foodName + " to feed your pet! Buy some then try again!");
+
         }
     }
     
-    private void incFoodCount()
+    public void incFoodCount()
     {
         this.foodCount += INC_FOOD_COUNT;
     }

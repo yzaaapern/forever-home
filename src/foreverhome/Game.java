@@ -23,6 +23,7 @@ public class Game {
         this.player = player;
         this.player.fosterPet = fosterPet;
         this.player.hasFosterPet = true;
+        System.out.println(this.player.toString());
         this.displayPetFosterMenu();
     }
     
@@ -54,7 +55,7 @@ public class Game {
         
         do{
             System.out.print("Give them a name: ");
-            fosterName = scanner.nextLine();
+            fosterName = scanner.next();
         }while(fosterName == "" || fosterName == " ");
         
         
@@ -111,6 +112,7 @@ public class Game {
         System.out.println("x - Exit the game");
         
         do{
+            System.out.print("Your choice: ");
             input = scanner.nextLine();
             
             if(input.equalsIgnoreCase("x")){
@@ -124,6 +126,9 @@ public class Game {
                if(input == "" || input == " "){
                    input = scanner.nextLine();
                }
+               if(input.equalsIgnoreCase("x")){
+                   break;
+               }
            }
             
             switch(inputNum){
@@ -132,10 +137,6 @@ public class Game {
                     break;
                 case 2:
                     this.player.fosterPet.incHygiene();
-                    if(this.player.fosterPet.checkLevelForIncLevel()){
-                        this.player.fosterPet.incLevel();
-                        this.player.incDabloons();
-                    }
                     System.out.println(this.player.fosterPet.toString());
                     break;
                 case 3: 
@@ -170,6 +171,7 @@ public class Game {
         System.out.println("x - Exit the game");
         
         do{
+            System.out.print("Your choice: ");
             input = scanner.nextLine();
             
             if(input.equalsIgnoreCase("x")){
@@ -183,71 +185,42 @@ public class Game {
                if(input == "" || input == " "){
                    input = scanner.nextLine();
                }
+               if(input.equalsIgnoreCase("x")){
+                   break;
+               }
            }
             
             switch(inputNum){
                 case 1:
                     this.player.fosterPet.givePat();
-                    if(this.player.fosterPet.checkLevelForIncLevel()){
-                        this.player.fosterPet.incLevel();
-                        this.player.incDabloons();                        
-                    }
                     System.out.println(this.player.fosterPet.toString());
                     break;
                 case 2:
                     this.player.fosterPet.playWithFoster();
-                    if(this.player.fosterPet.checkLevelForIncLevel()){
-                        this.player.fosterPet.incLevel();
-                        this.player.incDabloons();
-                        
-                    }
                     System.out.println(this.player.toString());
                     break;
                 case 3: 
                     this.player.fosterPet.goPotty();
-                    if(this.player.fosterPet.checkLevelForIncLevel()){
-                        this.player.fosterPet.incLevel();
-                        this.player.incDabloons();                        
-                    }
                     System.out.println(this.player.toString());
                     break;
                 case 4:
                     this.player.fosterPet.bow();
-                    if(this.player.fosterPet.checkLevelForIncLevel()){
-                        this.player.fosterPet.incLevel();
-                        this.player.incDabloons();                        
-                    }
                     System.out.println(this.player.toString());
                     break;
                 case 5:
                     this.player.fosterPet.shakeHands();
-                    if(this.player.fosterPet.checkLevelForIncLevel()){
-                        this.player.fosterPet.incLevel();
-                        this.player.incDabloons();                        
-                    }
                     System.out.println(this.player.toString());
                     break;
                 case 6:
                     this.player.fosterPet.spin();
-                    if(this.player.fosterPet.checkLevelForIncLevel()){
-                        this.player.fosterPet.incLevel();
-                        this.player.incDabloons();                      
-                    }
                     System.out.println(this.player.toString());
                     break;
                 case 7:
                     this.player.fosterPet.playDead();
-                    if(this.player.fosterPet.checkLevelForIncLevel()){
-                        this.player.fosterPet.incLevel();
-                    }
                     System.out.println(this.player.toString());
                     break;
                 case 8:
                     this.player.fosterPet.fetch();
-                    if(this.player.fosterPet.checkLevelForIncLevel()){
-                        this.player.fosterPet.incLevel();
-                        this.player.incDabloons();                        
-                    }
                     System.out.println(this.player.toString());
                     break;
                 case 9:
@@ -265,119 +238,68 @@ public class Game {
     public void buyFoodMenu(){
         String input;
         int inputNum;
+        Food boughtFood = null;
         Scanner scanner = new Scanner(System.in);
-        
-
         
         switch(checkFosterPet(this.player.fosterPet)){
             case 1:
-                // Buy dog related foods
+                boughtFood = this.player.foodInventory.buyDogAndCatFood();
+                this.player.decDabloons(boughtFood);
                 break;
             case 2:
-                // Buy cat related foods
+                boughtFood = this.player.foodInventory.buyDogAndCatFood();
+                this.player.decDabloons(boughtFood);
                 break;
             case 3:
-                // Buy rat related foods
+                boughtFood = this.player.foodInventory.buyRatParrotAndChickenFood();
+                this.player.decDabloons(boughtFood);
                 break;
             case 4:
-                // Buy parrot related foods;
+                boughtFood = this.player.foodInventory.buyRatParrotAndChickenFood();
+                this.player.decDabloons(boughtFood);
                 break;
             case 5:
-                // Buy chicken related foods;
+                boughtFood = this.player.foodInventory.buyRatParrotAndChickenFood();
+                this.player.decDabloons(boughtFood);
                 break;
             case 6:
-                // Go back to petFosterMenu
-                break;
+               System.out.println("Returning back to Pet Foster Menu.");
+               this.displayPetFosterMenu();
+               break;
                 
             default: break;
         }
     }
     public void displayFoodMenu(){
+        Food chosenFood = null;
+        
         switch(checkFosterPet(this.player.fosterPet)){
             case 1:
-                this.displayDogAndCatFoodMenu();
+                chosenFood = this.player.foodInventory.displayDogAndCatFoodMenu();
+                 if(chosenFood == null){
+                    break;
+                }
+                this.player.fosterPet.incHunger(chosenFood);
                 break;
             case 2:
-                this.displayDogAndCatFoodMenu();
+                chosenFood = this.player.foodInventory.displayDogAndCatFoodMenu();
+                this.player.fosterPet.incHunger(chosenFood);                
                 break;
             case 3:
-                this.displayRatParrotAndChickenFoodMenu();
+                chosenFood = this.player.foodInventory.displayRatParrotAndChickenFoodMenu();
+                this.player.fosterPet.incHunger(chosenFood);
                 break;
             case 4:
-                this.displayRatParrotAndChickenFoodMenu();
+                chosenFood = this.player.foodInventory.displayRatParrotAndChickenFoodMenu();
+                this.player.fosterPet.incHunger(chosenFood);                
                 break;
             case 5:
-                this.displayRatParrotAndChickenFoodMenu();
+                chosenFood = this.player.foodInventory.displayRatParrotAndChickenFoodMenu();
+                this.player.fosterPet.incHunger(chosenFood);
                 break;
             default: break;
         }
     }
-    
-    public void displayDogAndCatFoodMenu(){
-        String input;
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.println("Feed your foster pet with something tasty! Choose one of the following: ");
-        System.out.println("1. " );
-        System.out.println("");
-        
-        do{
-            input = scanner.nextLine();
-            
-            if(input.equalsIgnoreCase("x")){
-                break;
-            }
-            
-            switch(Integer.parseInt(input)){
-                case 1:
-                    //Food For All
-                    break;
-                case 2:
-                    //Kibble
-                    break;
-                case 3:
-                    //Canned Food
-                    break;
-                case 4:
-                    //Rainbow Treat
-                    break;
-                default: break;
-            }
-        }while(!isValidInput(input));
-    }
-    
-    public void displayRatParrotAndChickenFoodMenu(){
-        String input;
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.println("Feed your pet foster with something tasty! Choose one of the following: ");
-        System.out.println("1. " );
-        System.out.println("");
-        
-        do{
-            input = scanner.nextLine();
-            
-            if(input.equalsIgnoreCase("x")){
-                break;
-            }
-            
-            switch(Integer.parseInt(input)){
-                case 1:
-                    //Food For All
-                    break;
-                case 2:
-                    //Veggie Mix
-                    break;
-                case 3:
-                    //Seeds
-                    break;
-                case 4:
-                    //Rainbow Treat
-                    break;
-                default: break;
-            }
-        }while(!isValidInput(input));
-    } 
     
     public int checkFosterPet(Animal fosterPet){
         int animalType = 0;
@@ -417,6 +339,11 @@ public class Game {
         catch(NumberFormatException ex){
             if(input.equalsIgnoreCase("x")){
                 return true;
+            }
+            
+            if(input == "" || input == " "){
+                System.out.println("Invalid input.\nPlease try again.");
+                return false;
             }
             
             System.out.println("Invalid input.\nPlease try again.");

@@ -188,9 +188,15 @@ public abstract class Animal implements Interact, Level{
     */
     
     public void incHunger(Food food){
-        int inc_hunger = this.hunger + food.foodValue;
-        this.setHunger(inc_hunger);
-        this.incLevelXP();
+        if(food.getFoodCount() <= 0 || food == null){
+            return;
+        }
+        
+        else{
+            int inc_hunger = this.hunger + food.foodValue;
+            this.setHunger(inc_hunger);
+            this.incLevelXP();            
+        }
     }
     
     public void decHunger(){
