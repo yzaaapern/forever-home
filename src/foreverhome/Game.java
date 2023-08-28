@@ -25,7 +25,18 @@ public class Game {
     public Game(Player player, Animal fosterPet){
         this.player = player;
         this.player.fosterPet = fosterPet;
+        this.player.hasFosterPet = true;
+        
+        this.lur = new LevelUpRunnable(this.player.getFosterPet());
+        this.petLevelUpThread = new Thread(this.lur);
+        this.petLevelUpThread.start();
+        
+        this.dsr = new DecrementStatsRunnable(this.player);
+        this.petDecrementStatsThread = new Thread(this.dsr);
+        this.petDecrementStatsThread.start();
+        
         this.displayPetFosterMenu();
+        
     }
     
     public void displayFosterMenu(){
@@ -93,7 +104,6 @@ public class Game {
                 break;
             default: break;
         }
-        
         this.lur = new LevelUpRunnable(this.player.getFosterPet());
         this.petLevelUpThread = new Thread(this.lur);
         this.petLevelUpThread.start();
@@ -101,6 +111,7 @@ public class Game {
         this.dsr = new DecrementStatsRunnable(this.player);
         this.petDecrementStatsThread = new Thread(this.dsr);
         this.petDecrementStatsThread.start();
+        
         
         this.displayPetFosterMenu();
     }
@@ -117,6 +128,8 @@ public class Game {
         System.out.println("2. Bathe " + this.player.fosterPet.name);
         System.out.println("3. Play or do tricks with " + this.player.fosterPet.name);
         System.out.println("4. Buy food for " + this.player.fosterPet.name);
+        
+        
         System.out.println("x - Exit the game");
         
         do{
@@ -158,6 +171,7 @@ public class Game {
             
             this.displayPetFosterMenu();
         }while(!this.isValidInput(input));
+        
     }
     
     public void displayInteractMenu(){
@@ -439,4 +453,13 @@ public class Game {
     {
         System.out.println("Thank you " + this.player.getName() + " for playing ForeverHome, until next time! ");
     }
+    
+    public void adoptionMenu()
+    {
+        // message
+        
+        // option to put for adoption or just keep playing with pet for a bit longer
+        // when pet is adopted, this.player.hasFoster = false;
+    }
+    
 }

@@ -13,7 +13,9 @@ public class Test
     public static void main(String[] args) 
     {
         Player player1 = new Player("Anny");
-        Game game = new Game(player1);
+        Animal cat = new Cat("Poopoo cat");
+        
+        Game game = new Game(player1, cat);
         
         
 //        LevelUpRunnable lur = new LevelUpRunnable(player1.getFosterPet());

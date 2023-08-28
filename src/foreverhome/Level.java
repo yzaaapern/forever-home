@@ -25,6 +25,7 @@ public interface Level {
     public final int INC_LEVELXP_CAP = 45;
     public final int INC_EXP = 15;
     public final int DEC_EXP = 15;
+    public final int MAX_LEVEL = 10;
     
     /*
         METHODS

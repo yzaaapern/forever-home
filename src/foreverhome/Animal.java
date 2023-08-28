@@ -13,16 +13,18 @@ public abstract class Animal implements Interact, Level{
     /*
         INSTANCE AND CONSTANT VARIABLES
     */
-    public static final int INC_STAT = 10;
-    public static final int DEC_STAT = 5;
-    public static int DEFAULT_STAT = 100;
     
-    protected String name;
+    public static final int INC_STAT = 10; // when a stat is increased it will increase by 10 points
+    public static final int DEC_STAT = 5; // when a stat is decreased it will decrease by 5 points
+    public static int DEFAULT_STAT = 100; // default stat cap for happiness, hygiene, hunger, and level xp 
+    
+    protected String name; 
     protected int happiness, hygiene, hunger, level, levelXP, statBar, levelXPBar;
     
     /*
         OBJECT CONSTRUCTOR
     */
+    
     public Animal(String name){
         this.setName(name);
         this.setHappiness(0);
@@ -63,6 +65,7 @@ public abstract class Animal implements Interact, Level{
         this.hunger = hunger;
         
     }
+    
     public int getHunger(){
         return this.hunger;
     }
@@ -121,14 +124,15 @@ public abstract class Animal implements Interact, Level{
     public int getLevelXPBar(){
         return this.levelXPBar;
     }
+    
     /*
         OVERRIDE TOSTRING METHOD
-    */
+        Parameters: None
+        Return: String
+        Description: Returns useful description of the foster pet's stats.
     
-    /**
-     *
-     * @return
-     */
+    */
+
     @Override
     public String toString(){
         return ("\n---------------------\n" +
@@ -140,8 +144,18 @@ public abstract class Animal implements Interact, Level{
                 "\n-Happiness: " + this.happiness + "/" + this.statBar +
                 "\n---------------------\n");
     }
+    
     /*
         METHODS
+    */
+    
+    /*  incHunger method
+    
+    Parameters: Food object
+    Return: None
+    Description: If the pet eats their hunger stat will increase,
+    If the increase in hunger is greater than the cap, it will just be set to the cap (you cannot have more hunger points than the max cap)
+    Otherwise, the hunger is the hunger + the increase in hunger constant.
     */
     
     public void incHunger(Food food){
@@ -157,6 +171,15 @@ public abstract class Animal implements Interact, Level{
         this.incLevelXP();
     }
     
+    /*  decHunger method
+    
+    Parameters: None
+    Return: None
+    Description: The pet's hunger stat will decrease
+    If the decrease in hunger is lower than 0, it will just be set to 0 (you cannot have negative hunger points)
+    Otherwise, the hunger is the hunger - decrease in hunger constant.
+    */
+    
     public void decHunger(){
         int dec_hunger = this.hunger - Animal.DEC_STAT;
         if(dec_hunger < 0)
@@ -169,6 +192,15 @@ public abstract class Animal implements Interact, Level{
         }
         
     }
+    
+    /*  incHunger method
+    
+    Parameters: None
+    Return: None
+    Description: Pet's happiness stat increases
+    If the increase in happiness is greater than the cap, it will just be set to the cap (you cannot have more happiness points than the max cap)
+    Otherwise, the happiness is the happiness + the increase in happiness constant.
+    */
     
     public void incHappiness(){
         int inc_happiness = this.happiness + Animal.INC_STAT;
@@ -183,6 +215,15 @@ public abstract class Animal implements Interact, Level{
         this.incLevelXP();
     }
     
+    /*  decHappiness method
+    
+    Parameters: None
+    Return: None
+    Description: The pet's happiness stat will decrease
+    If the decrease in happiness is lower than 0, it will just be set to 0 (you cannot have negative happiness points)
+    Otherwise, the happiness is the happiness - decrease in happiness constant.
+    */
+    
     public void decHappiness(){
         int dec_happiness = this.happiness - Animal.DEC_STAT;
         if(dec_happiness < 0)
@@ -194,6 +235,15 @@ public abstract class Animal implements Interact, Level{
             this.setHappiness(dec_happiness);
         }
     }
+    
+    /*  incHygiene method
+    
+    Parameters: None
+    Return: None
+    Description: Pet's hygiene stat increases (this occurs when the pet is bathed)
+    If the increase in hygiene is greater than the cap, it will just be set to the cap (you cannot have more hygiene points than the max cap)
+    Otherwise, the hygiene is the hygiene + the increase in hygiene constant.
+    */
     
     public void incHygiene(){
         int inc_hygiene = this.hygiene + Animal.INC_STAT;
@@ -208,6 +258,15 @@ public abstract class Animal implements Interact, Level{
         this.incLevelXP();
     }
     
+    /*  decHygiene method
+    
+    Parameters: None
+    Return: None
+    Description: The pet's hygiene stat will decrease (normally when playing)
+    If the decrease in hygiene is lower than 0, it will just be set to 0 (you cannot have negative hygiene points)
+    Otherwise, the hygiene stat is the hygiene - decrease in hygiene constant.
+    */
+    
     public void decHygiene(){
         int dec_hygiene = this.hygiene - Animal.DEC_STAT;
         if(dec_hygiene < 0)
@@ -218,12 +277,19 @@ public abstract class Animal implements Interact, Level{
         {
             this.setHygiene(dec_hygiene);
         }
-
     }
     
     /*
         OVERRIDE INTERACT METHODS
     */
+    
+    /*  givePat method
+    
+    Parameters: None
+    Return: None
+    Description: When the player pats their pet the pet becomes happier and increases pet's xp
+    */
+    
     @Override
     public void givePat() {
         this.incHappiness();
@@ -231,6 +297,13 @@ public abstract class Animal implements Interact, Level{
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /*  playWithFoster method
+    
+    Parameters: None
+    Return: None
+    Description:  When the player plays with their pet, the pet becomes happier, hungier, a bit dirty, and increases pet's xp
+    */
+    
     @Override
     public void playWithFoster() {
         this.incHappiness();
@@ -240,6 +313,13 @@ public abstract class Animal implements Interact, Level{
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /*  goPotty method
+    
+    Parameters: None
+    Return: None
+    Description: If the pet has unlocked potty and the pet goes potty, the pet will become happier, a bit dirty, and increases pet's xp
+    */
+    
     @Override
     public void goPotty() {
         int levelUnlocked = 5;
@@ -255,6 +335,14 @@ public abstract class Animal implements Interact, Level{
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /*  bow method
+    
+    Parameters: None
+    Return: None
+    Description: If the pet has unlocked bow and the pet does the bow trick, the pet will become happier and increases the pet's xp
+    Otherwise, if the pet has not unlocked bow, the system will tell the player that they cannot do the trick yet.
+    */
+    
     @Override
     public void bow() {
         int levelUnlocked = 6;
@@ -268,6 +356,14 @@ public abstract class Animal implements Interact, Level{
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /*  shakeHands method
+    
+    Parameters: None
+    Return: None
+    Description: If the pet has unlocked shake hands and the pet does the shake hand trick, the pet will become happied and increases the pet's xp
+    Otherwise, if the pet has not unlocked shake hands, the system will tell the player that they cannot do the trick yet.
+    */
+    
     @Override
     public void shakeHands() {
         int levelUnlocked = 7;
@@ -281,6 +377,13 @@ public abstract class Animal implements Interact, Level{
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /*  spin method
+    
+    Parameters: None
+    Return: None
+    Description: If the pet has unlocked spin and the pet does a spin trick 
+    */
+    
     @Override
     public void spin() {
         int levelUnlocked = 8;
@@ -294,6 +397,13 @@ public abstract class Animal implements Interact, Level{
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /*  givePat method
+    
+    Parameters:
+    Return:
+    Description: 
+    */
+    
     @Override
     public void playDead() {
         int levelUnlocked = 9;
@@ -307,6 +417,13 @@ public abstract class Animal implements Interact, Level{
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /*  givePat method
+    
+    Parameters:
+    Return:
+    Description: 
+    */
+    
     @Override
     public void fetch() {
         int levelUnlocked = 10;
@@ -325,6 +442,7 @@ public abstract class Animal implements Interact, Level{
     /*
         OVERRIDE LEVEL METHODS
     */
+    
     @Override
     public boolean checkLevelForInteract(int level) {
         return this.level >= level;

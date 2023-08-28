@@ -46,6 +46,7 @@ public class LevelUpRunnable implements Runnable
     {
         while(fosterPet.getLevel() < MAX_LEVEL)
         {
+            System.out.println(fosterPet);
             fosterPet.incLevel();
             try
             {
@@ -58,7 +59,6 @@ public class LevelUpRunnable implements Runnable
             
         }
 
-    }
-    
+    }    
     
 }
