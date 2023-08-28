@@ -135,7 +135,7 @@ public abstract class Animal implements Interact, Level{
 
     @Override
     public String toString(){
-        return ("\n---------------------\n" +
+        return ("---------------------\n" +
                 "FOSTER PET STATS" +
                 "\n-Foster Pet Name: " + this.name + 
                 "\n-Level: " + this.level + " and Level XP: " + this.levelXP + "/" + this.levelXPBar +
@@ -460,15 +460,16 @@ public abstract class Animal implements Interact, Level{
     @Override
     public int incLevel() {
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int inc_level = this.getLevel();
         if(checkLevelForIncLevel()){
+            
             this.resetLevelXP();
             this.setLevelXPBar(levelXPBar += Level.INC_LEVELXP_CAP);
-            return this.level++;
+            inc_level++;
+            this.setLevel(inc_level);
         }
         
-        else{
-            return this.level;
-        }
+        return this.level;
     }
 
     @Override
