@@ -22,8 +22,8 @@ public interface Level {
         CONSTANT VARIABLES
     */
     public final int DEFAULT_LEVELXP_CAP = 100;
-    public final int INC_LEVELXP_CAP = 45;
-    public final int INC_EXP = 15;
+    public final int INC_LEVELXP_CAP = 40;
+    public final int INC_EXP = 10;
     public final int DEC_EXP = 15;
     public final int MAX_LEVEL = 10;
     

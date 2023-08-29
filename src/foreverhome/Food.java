@@ -8,26 +8,17 @@ package foreverhome;
  *
  * @author annga
  */
-public class Food 
+public abstract class Food 
 {
-    // protected instance variables
-    protected String foodName;
-    protected int foodValue;
-    protected int foodCost;
-    protected int foodCount;
-    protected final int INC_FOOD_COUNT = 5;
+    // Instance variables
+    private String foodName;
+    private int foodType; // integer for food type, type 0 is compatible with all animals, type 1 is for bigger animals (cats & dogs), type 2 is for smaller animals (rat, parrot, chicken).
+    private int foodValue; // integer for how many hunger points the food has
+    private int foodCost;
+    private int foodCount;
+    private final int INC_FOOD_COUNT = 5; // when food is bought, it increases by this amount.
     
-    // default constructor
-    public Food()
-    {
-        this.foodName = "";
-        this.foodValue = 0;
-        this.foodCost = 0;
-        this.foodCount = 0;
-    }
-    
-    
-    // constructor 
+    // Constructor 
     public Food(String foodName, int foodValue, int foodCost, int foodCount)
     {
         this.foodName = foodName;
@@ -36,10 +27,22 @@ public class Food
         this.foodCount = foodCount;
     }
 
-    // methods
+    // METHODS
+    
+    // Get & set methods
     public String getFoodName()
     {
         return this.foodName;
+    }
+    
+        public int getFoodType()
+    {
+        return this.foodType;
+    }
+    
+    public void setFoodType(int foodType)
+    {
+        this.foodType = foodType;
     }
     
     public int getFoodValue()
@@ -57,17 +60,22 @@ public class Food
         return this.foodCount;
     }
     
+    public void setFoodCount(int foodCount)
+    {
+        this.foodCount = foodCount;
+    }
+    
     public void decFoodCount()
     {
-        if(this.getFoodCount()> 0)
-        {
-            System.out.println("Nice! " + this.foodName + " increases their hunger by " + this.foodValue + " points.");
-            this.foodCount--;
-        }
+        int dec_foodCount = this.getFoodCount() - 1;
         
-        else if(this.getFoodCount() <= 0){
-            System.out.println("You do not have any " + this.foodName + " to feed your pet! Buy some then try again!");
-
+        if(dec_foodCount < 0)
+        {
+            this.setFoodCount(0);
+        }
+        else
+        {
+            this.setFoodCount(dec_foodCount);
         }
     }
     
@@ -79,7 +87,7 @@ public class Food
     @Override
     public String toString()
     {
-        return this.getFoodName() + "\n\t-Hunger Value: " + this.getFoodValue() + " points \n\t-Cost: $" + this.getFoodCost() + "\n\t-Quantity: " + this.getFoodCount();
+        return this.getFoodName() + "\n\t-Hunger Value: " + this.getFoodValue() + " points \n\t-Cost: $" + this.getFoodCost() + "\n\t-Quantity: " + this.getFoodCount() + "\n";
     }
     
     public String toStringNoCost()

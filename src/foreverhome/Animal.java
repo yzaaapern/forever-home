@@ -13,13 +13,13 @@ public abstract class Animal implements Interact, Level{
     /*
         INSTANCE AND CONSTANT VARIABLES
     */
+    public static final int NUM_OF_ANIMAL_CLASS = 5;
+    private final int INC_STAT = 25; // when a stat is increased it will increase by 25 points
+    private final int DEC_STAT = 5; // when a stat is decreased it will decrease by 5 points
+    private int DEFAULT_STAT = 100; // default stat cap for happiness, hygiene, hunger, and level xp 
     
-    public static final int INC_STAT = 10; // when a stat is increased it will increase by 10 points
-    public static final int DEC_STAT = 5; // when a stat is decreased it will decrease by 5 points
-    public static int DEFAULT_STAT = 100; // default stat cap for happiness, hygiene, hunger, and level xp 
-    
-    protected String name; 
-    protected int happiness, hygiene, hunger, level, levelXP, statBar, levelXPBar;
+    private String name; 
+    private int animalFoodType, happiness, hygiene, hunger, level, levelXP, statBar, levelXPBar;
     
     /*
         OBJECT CONSTRUCTOR
@@ -27,12 +27,13 @@ public abstract class Animal implements Interact, Level{
     
     public Animal(String name){
         this.setName(name);
+        this.setAnimalFoodType(0);
         this.setHappiness(0);
         this.setHygiene(0);
         this.setHunger(0);
         this.setLevel(0);
         this.setLevelXP(0);
-        this.setStatBar(Animal.DEFAULT_STAT);
+        this.setStatBar(DEFAULT_STAT);
         this.setLevelXPBar(Level.DEFAULT_LEVELXP_CAP);
     }
     
@@ -45,6 +46,17 @@ public abstract class Animal implements Interact, Level{
     
     public String getName(){
         return this.name;
+    }
+    
+    /*
+        ANIMAL FOOD TYPE: SET AND GET METHOD
+    */
+    public void setAnimalFoodType(int animalType){
+        this.animalFoodType = animalType;
+    }
+    
+    public int getAnimalFoodType(){
+        return this.animalFoodType;
     }
     
     /*
@@ -169,6 +181,7 @@ public abstract class Animal implements Interact, Level{
             this.setHunger(inc_hunger);
         }
         this.incLevelXP();
+        this.incLevel();
     }
     
     /*  decHunger method
@@ -181,7 +194,7 @@ public abstract class Animal implements Interact, Level{
     */
     
     public void decHunger(){
-        int dec_hunger = this.hunger - Animal.DEC_STAT;
+        int dec_hunger = this.hunger - DEC_STAT;
         if(dec_hunger < 0)
         {
             this.setHunger(0);
@@ -203,7 +216,7 @@ public abstract class Animal implements Interact, Level{
     */
     
     public void incHappiness(){
-        int inc_happiness = this.happiness + Animal.INC_STAT;
+        int inc_happiness = this.happiness + INC_STAT;
         if(inc_happiness > DEFAULT_STAT)
         {
             this.setHappiness(DEFAULT_STAT);
@@ -213,6 +226,7 @@ public abstract class Animal implements Interact, Level{
             this.setHappiness(inc_happiness);
         }
         this.incLevelXP();
+        this.incLevel();
     }
     
     /*  decHappiness method
@@ -225,7 +239,7 @@ public abstract class Animal implements Interact, Level{
     */
     
     public void decHappiness(){
-        int dec_happiness = this.happiness - Animal.DEC_STAT;
+        int dec_happiness = this.happiness - DEC_STAT;
         if(dec_happiness < 0)
         {
             this.setHappiness(0);
@@ -246,7 +260,7 @@ public abstract class Animal implements Interact, Level{
     */
     
     public void incHygiene(){
-        int inc_hygiene = this.hygiene + Animal.INC_STAT;
+        int inc_hygiene = this.hygiene + INC_STAT;
         if(inc_hygiene > DEFAULT_STAT)
         {
             this.setHygiene(DEFAULT_STAT);
@@ -256,6 +270,7 @@ public abstract class Animal implements Interact, Level{
             this.setHygiene(inc_hygiene);
         }
         this.incLevelXP();
+        this.incLevel();
     }
     
     /*  decHygiene method
@@ -268,7 +283,7 @@ public abstract class Animal implements Interact, Level{
     */
     
     public void decHygiene(){
-        int dec_hygiene = this.hygiene - Animal.DEC_STAT;
+        int dec_hygiene = this.hygiene - DEC_STAT;
         if(dec_hygiene < 0)
         {
             this.setHygiene(0);
@@ -294,6 +309,7 @@ public abstract class Animal implements Interact, Level{
     public void givePat() {
         this.incHappiness();
         this.incLevelXP();
+        this.incLevel();
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -310,6 +326,7 @@ public abstract class Animal implements Interact, Level{
         this.decHunger();
         this.decHygiene();
         this.incLevelXP();
+        this.incLevel();
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
@@ -327,6 +344,7 @@ public abstract class Animal implements Interact, Level{
             this.incHappiness();
             this.decHygiene();
             this.incLevelXP();
+            this.incLevel();
         }
         else{
             System.out.println("You cannot do this trick yet! " + this.name + " has yet to reach Level 5.");
@@ -349,6 +367,7 @@ public abstract class Animal implements Interact, Level{
         if(checkLevelForInteract(levelUnlocked)){
             this.incHappiness();
             this.incLevelXP();
+            this.incLevel();
         }
         else{
             System.out.println("You cannot do this trick yet! " + this.name + " has yet to reach Level 6.");
@@ -370,6 +389,7 @@ public abstract class Animal implements Interact, Level{
         if(checkLevelForInteract(levelUnlocked)){
             this.incHappiness();
             this.incLevelXP();
+            this.incLevel();
         }
         else{
             System.out.println("You cannot do this trick yet! " + this.name + " has yet to reach Level 7.");
@@ -390,6 +410,7 @@ public abstract class Animal implements Interact, Level{
         if(checkLevelForInteract(levelUnlocked)){
             this.incHappiness();
             this.incLevelXP();
+            this.incLevel();
         }
         else{
             System.out.println("You cannot do this trick yet! " + this.name + " has yet to reach Level 8.");
@@ -410,6 +431,7 @@ public abstract class Animal implements Interact, Level{
         if(checkLevelForInteract(levelUnlocked)){
             this.incHappiness();
             this.incLevelXP();
+            this.incLevel();
         }
         else{
             System.out.println("You cannot do this trick yet! " + this.name + " has yet to reach Level 9.");
@@ -432,6 +454,7 @@ public abstract class Animal implements Interact, Level{
             this.decHunger();
             this.decHygiene();
             this.incLevelXP();
+            this.incLevel();
         }
         else{
             System.out.println("You cannot do this trick yet! " + this.name + " has yet to reach Level 10.");
@@ -459,16 +482,14 @@ public abstract class Animal implements Interact, Level{
 
     @Override
     public int incLevel() {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
         int inc_level = this.getLevel();
         if(checkLevelForIncLevel()){
-            
             this.resetLevelXP();
             this.setLevelXPBar(levelXPBar += Level.INC_LEVELXP_CAP);
             inc_level++;
+            this.levelUpMessage(inc_level);
             this.setLevel(inc_level);
         }
-        
         return this.level;
     }
 
@@ -483,7 +504,6 @@ public abstract class Animal implements Interact, Level{
         {
             this.setLevelXP(inc_levelXP);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -497,14 +517,17 @@ public abstract class Animal implements Interact, Level{
         {
             this.setLevelXP(dec_levelXP);
         }
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void resetLevelXP() {
         this.setLevelXP(0);
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    }    
     
+    public void levelUpMessage(int newLevel)
+    {
+        System.out.println("LEVEL UP! Congratulations you are now LEVEL " + newLevel);
+        return;
+    }
     
 }

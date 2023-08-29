@@ -15,8 +15,8 @@ public class Player {
     private String name;
     public Animal fosterPet;
     public boolean hasFosterPet;
-    public int dabloons;
-    public FoodInventory foodInventory;
+    private int dabloons;
+    private FoodInventory foodInventory;
     
     public Player(String name){
         this.setName(name);
@@ -30,7 +30,7 @@ public class Player {
         this.setName(name);
         this.setFosterPet(fosterPet);
         this.hasFosterPet = true;
-        this.setFoodInventory(foodInventory);
+        this.foodInventory = foodInventory;
     }
     
     public void setName(String name){
@@ -49,37 +49,33 @@ public class Player {
         return this.fosterPet;
     }
     
-    public void setFoodInventory(FoodInventory foodInventory){
-        this.foodInventory = foodInventory;
+    public int getDabloons() {
+        return dabloons;
+    }
+
+    public void setDabloons(int dabloons) {
+        this.dabloons = dabloons;
     }
     
     public FoodInventory getFoodInventory(){
         return this.foodInventory;
     }
-    
+
     public void incDabloons(){
-        if(this.fosterPet.level == 10 && this.fosterPet.levelXP == this.fosterPet.levelXPBar){
-            this.dabloons += REWARD_DABLOONS;
+        if(this.fosterPet.getLevel() == 10 && this.fosterPet.getLevelXP() == this.fosterPet.getLevelXPBar())
+        {
+            this.setDabloons(this.getDabloons() + REWARD_DABLOONS);
         }
-        if(this.fosterPet.checkLevelForIncLevel()){
-           this.dabloons += INC_DABLOONS;
+        if(this.fosterPet.checkLevelForIncLevel())
+        {
+            this.setDabloons(this.getDabloons() + INC_DABLOONS);
 
         }
     }
     
-    public void decDabloons(Food food){
-        if(food == null){
-            return;
-        }
-        
-        if(this.dabloons == 0){
-            System.out.println("You do not have enough money to buy " + food.foodName);
-            return;
-        }
-        
-        else{
-            this.dabloons -= food.foodCost;
-        }
+    public void decDabloons(Food food)
+    {
+        this.setDabloons(this.getDabloons() - food.getFoodCost());
     }
     
     public String toString(){
@@ -87,7 +83,9 @@ public class Player {
         return "---------------------\n" +
                "PLAYER STATS\n" + 
                "Username: " + this.name + 
-               "\nDabloons: $" + this.dabloons + 
+               "\nDabloons: $" + this.getDabloons() + 
                "\n---------------------\n" + displayPet;
     }
+
+
 }

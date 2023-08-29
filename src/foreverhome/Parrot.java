@@ -12,5 +12,6 @@ public class Parrot extends Animal{
     
     public Parrot(String name){
         super(name);
+        this.setAnimalFoodType(2);
     }
 }

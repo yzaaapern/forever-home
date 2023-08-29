@@ -12,5 +12,6 @@ public class Chicken extends Animal{
     
     public Chicken(String name){
         super(name);
+        this.setAnimalFoodType(2);
     }
 }

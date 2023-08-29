@@ -8,14 +8,12 @@ package foreverhome;
  *
  * @author annga
  */
-public class Test 
-{
-    public static void main(String[] args) 
+public class FoodType0 extends Food
+{    
+    // Constructor
+    public FoodType0(String foodName, int foodValue, int foodCost, int foodCount)
     {
-        Player player1 = new Player("Anny");
-//        Animal cat = new Cat("Poopoo cat");
-        
-        Game game = new Game(player1);      
-        
+        super(foodName, foodValue, foodCost, foodCount);
+        super.setFoodType(0);
     }
 }

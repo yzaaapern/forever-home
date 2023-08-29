@@ -23,40 +23,45 @@ public class FoodInventory {
     Food[] foods = new Food[NUM_OF_FOODS];
     
     public FoodInventory(){
-        this.foodForAll = new Food("Food for All", 10, 6, 5);
+        this.foodForAll = new FoodType0("Food for All", 10, 6, 5);
         this.foods[0] = foodForAll;
         
-        this.kibble = new Food("Kibble", 20, 10, 0);
+        this.kibble = new FoodType1("Kibble", 20, 10, 0);
         this.foods[1] = kibble;
         
-        this.cannedFood = new Food("Canned Food", 30, 12, 0);
+        this.cannedFood = new FoodType1("Canned Food", 30, 12, 0);
         this.foods[2] = cannedFood;
         
-        this.veggieMix = new Food("Veggie Mix", 20, 10, 0);
+        this.veggieMix = new FoodType2("Veggie Mix", 20, 10, 0);
         this.foods[3] = veggieMix;
         
-        this.seeds = new Food("Seeds", 30, 12, 0);
+        this.seeds = new FoodType2("Seeds", 30, 12, 0);
         this.foods[4] = seeds;
         
-        this.rainbowTreat = new Food("Rainbow Treat", 50, 20, 0);
+        this.rainbowTreat = new FoodType0("Rainbow Treat", 50, 20, 0);
         this.foods[5] = rainbowTreat;
     }
     
-    public Food buyDogAndCatFood(){
+    public Food getValidFoodMenu(int foodType){
+        
+        // Variables
+        
         String input;
         int inputNum = 0;
-        Food chosenFood = null;
-        Scanner scanner = new Scanner(System.in);
+        Food chosenFood = null; // player's chosen food to buy
+        
+        Scanner scanner = new Scanner(System.in); // scanner for user input
         
         System.out.println("Get more foods to feed your foster pet!");
         System.out.println("Purchasing one of these foods increases your chosen food's quantity by 5! Isn't that nice?");
-        System.out.println("1. Food for All\n\t-Hunger Value: 5 points\n\t-Cost: $6");
-        System.out.println("2. Kibble\n\t-Hunger Value: 10 points\n\t-Cost: $10");
-        System.out.println("3. Canned Food\n\t-Hunger Value: 15 points\n\t-Cost: $12");
-        System.out.println("4. Rainbow Treat\n\t-Hunger Value: 28 points\n\t-Cost: $20");
-        System.out.println("x - Go back to Pet Foster Menu");
         
-        do{
+        // Displaying store for valid food type
+        System.out.println(this.displayValidFood(foodType));
+        
+        System.out.println("x -  Go back to Pet Foster Menu");
+        
+        do
+        {
             System.out.print("Your choice: ");
             input = scanner.nextLine();
             
@@ -64,47 +69,28 @@ public class FoodInventory {
                 return null;
             }
             
-            
         }while(!this.isValidInput(input));
         
         inputNum = Integer.parseInt(input);       
-
         
-        switch(inputNum){
-            case 1:
-                this.foodForAll.incFoodCount();
-                chosenFood = foodForAll;
-                break;
-            case 2:
-                this.kibble.incFoodCount();
-                chosenFood = kibble;
-                break;
-            case 3:
-                this.cannedFood.incFoodCount();
-                chosenFood = cannedFood;
-                break;
-            case 4:
-                this.rainbowTreat.incFoodCount();
-                chosenFood = rainbowTreat;
-                break;
-            default: break;
-        }
+        // Player is getting from list of viable foods
+        chosenFood = this.getValidFood(foodType, inputNum);
         
         return chosenFood;
         
     }
     
-    public Food displayDogAndCatFoodMenu(){
+    public Food useValidFoodMenu(int foodType){
         String input;
         int inputNum = 0;
         Food chosenFood = null;
         Scanner scanner = new Scanner(System.in);
         
         System.out.println("Feed your foster pet something tasty! \n");
-        System.out.println("1. " + foodForAll.toStringNoCost());
-        System.out.println("2. " + kibble.toStringNoCost());
-        System.out.println("3. " + cannedFood.toStringNoCost());
-        System.out.println("4. " + rainbowTreat.toStringNoCost());
+        
+        // Displaying player's stock of food types 0 and 1
+        System.out.println(this.displayValidFood(foodType));
+        
         System.out.println("x -  Go back to Pet Foster Menu");
         
         do{
@@ -120,129 +106,13 @@ public class FoodInventory {
         
         inputNum = Integer.parseInt(input);       
 
-        
-        switch(inputNum){
-            case 1:
-                this.foodForAll.decFoodCount();
-                chosenFood = foodForAll;
-                break;
-            case 2:
-                this.kibble.decFoodCount();
-                chosenFood = kibble;
-                break;
-            case 3:
-                this.cannedFood.decFoodCount();
-                chosenFood = cannedFood;
-                break;
-            case 4:
-                this.rainbowTreat.decFoodCount();
-                chosenFood = rainbowTreat;
-                break;
-            default: break;
-        }
+        // Player feeding pet from list of viable foods
+        chosenFood = this.useValidFood(foodType, inputNum);
         
         return chosenFood;
     }
     
-    public Food buyRatParrotAndChickenFood(){
-        String input;
-        int inputNum = 0;
-        Food chosenFood = null;
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.println("Buy your foster pet with something tasty!");
-        System.out.println("1. Food for All\n\t-Hunger Value: 5 points\n\t-Cost: $6");
-        System.out.println("2. Veggie Mix\n\t-Hunger Value: 10 points\n\t-Cost: $10");
-        System.out.println("3. Seeds\n\t-Hunger Value: 15 points\n\t-Cost: $12");
-        System.out.println("4. Rainbow Treat\n\t-Hunger Value: 28 points\n\t-Cost: $20");
-        System.out.println("x -  Go back to Pet Foster Menu");
-        
-        do{
-            System.out.print("Your choice: ");
-            input = scanner.nextLine();
-            
-            if(input.equalsIgnoreCase("x")){
-                return null;
-            }
-            
-            
-        }while(!this.isValidInput(input));
-        
-        inputNum = Integer.parseInt(input);       
-        
-        switch(inputNum){
-            case 1:
-                this.foodForAll.incFoodCount();
-                chosenFood = foodForAll;
-                break;
-            case 2:
-                this.veggieMix.incFoodCount();
-                chosenFood = veggieMix;
-                break;
-            case 3:
-                this.seeds.incFoodCount();
-                chosenFood = seeds;
-                break;
-            case 4:
-                this.rainbowTreat.incFoodCount();
-                chosenFood = rainbowTreat;
-                break;
-            default: break;
-        }
-        
-        return chosenFood;
-    }
-    
-    public Food displayRatParrotAndChickenFoodMenu(){
-        String input;
-        int inputNum = 0;
-        Food chosenFood = null;
-        Scanner scanner = new Scanner(System.in);
-        
-        System.out.println("Buy your foster pet with something tasty!");
-        System.out.println("1. " + foodForAll.toString());
-        System.out.println("2. " + veggieMix.toString());
-        System.out.println("3. " + seeds.toString());
-        System.out.println("4. " + rainbowTreat.toString());
-        System.out.println("x -  Go back to Pet Foster Menu");
-        
-        do{
-            System.out.print("Your choice: ");
-            input = scanner.nextLine();
-            
-            if(input.equalsIgnoreCase("x")){
-                break;
-            }
-            
-            
-        }while(!this.isValidInput(input));
-       
-        inputNum = Integer.parseInt(input);       
-
-        
-        switch(inputNum){
-            case 1:
-                this.foodForAll.decFoodCount();
-                chosenFood = foodForAll;
-                break;
-            case 2:
-                this.veggieMix.decFoodCount();
-                chosenFood = veggieMix;
-                break;
-            case 3:
-                this.seeds.decFoodCount();
-                chosenFood = seeds;
-                break;
-            case 4:
-                this.rainbowTreat.decFoodCount();
-                chosenFood = rainbowTreat;
-                break;
-            default: break;
-        }
-        
-        return chosenFood;
-    }
-    
+    @Override
     public String toString(){
         String foodInventoryOutput = "Your current food inventory: \n";
         int count = 1;
@@ -277,7 +147,55 @@ public class FoodInventory {
         return true;
     }
     
+    public String displayValidFood(int foodType)
+    {
+        String output = "";
+        int count = 1;
+        for(int i = 0; i < this.foods.length; i++) // for loop for the length of the foods array
+        {
+            if(this.foods[i].getFoodType() == 0 || this.foods[i].getFoodType() == foodType) // if the food is of type 0 or 1
+            {
+                output += count + ". " + this.foods[i];
+                count++; // increments count for viable foods
+            }
+        }
+        return output;
+    }
     
+    public Food getValidFood(int foodType, int inputNum)
+    {
+        int count = 1;
+        Food chosenFood = null;
+        
+        for(int i = 0; i < this.foods.length; i++)
+        {
+            if(this.foods[i].getFoodType() == 0 || this.foods[i].getFoodType() == foodType) // if the food is a valid type
+            {
+                if(inputNum == count) // if the user's inputNum is equal to the count of viable foods
+                {
+                    chosenFood = this.foods[i]; // the chosen food is that food
+                }
+                count++; // increments count for viable foods
+            }
+        }
+        return chosenFood;
+    }
     
-   
+    public Food useValidFood(int foodType, int inputNum)
+    {
+        Food chosenFood = null;
+        int count = 1; // count for viable foods is reset to 1
+        for(int i = 0; i < this.foods.length; i++)
+        {
+            if(this.foods[i].getFoodType() == 0 || this.foods[i].getFoodType() == foodType) // if the food is of type 0 or 1
+            {
+                if(inputNum == count) // if the user's inputNum is equal to the count of viable foods
+                {
+                    chosenFood = this.foods[i]; // the chosen food is that food
+                }
+                count++; // increments count for viable foods
+            }
+        }
+        return chosenFood;
+    }
 }
