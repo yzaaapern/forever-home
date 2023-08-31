@@ -13,9 +13,12 @@ public class Test
     public static void main(String[] args) 
     {
         Player player1 = new Player("Anny");
-//        Animal cat = new Cat("Poopoo cat");
+        Animal cat = new Cat("Poopoo cat");
+//        cat.setLevel(5);
+        // player1.setDabloons(1000);
         
-        Game game = new Game(player1);      
+        Game game = new Game(player1, cat);      
+//        Game game = new Game(player1);      
         
     }
 }

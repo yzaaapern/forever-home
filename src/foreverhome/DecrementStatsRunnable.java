@@ -17,7 +17,7 @@ public class DecrementStatsRunnable implements Runnable
 {
     // Instance variables
     public Player player;
-    public final int TIME_INTERVAL = 60000; // time interval between stat decrements is 1 minute = 60000ms
+    public final int TIME_INTERVAL = 30000; // time interval between stat decrements is 1 minute = 60000ms
     
     // Constructor
     public DecrementStatsRunnable(Player player)
@@ -40,7 +40,7 @@ public class DecrementStatsRunnable implements Runnable
     public void run()
     {
         // while the player has a foster pet, the player's foster pet's happiness, hunger, and hygience will decrease over time
-        while(this.player.hasFosterPet == true)
+        while(this.player.isPlaying)
         {   
             try
             {
@@ -52,7 +52,7 @@ public class DecrementStatsRunnable implements Runnable
             }
             
             // pet is being neglected, so the level xp will decrease and alert message will be displayed
-            if(this.player.getFosterPet().getHappiness() == 0 && this.player.getFosterPet().getHunger() == 0 && this.player.getFosterPet().getHygiene() == 0)
+            if((this.player.getFosterPet().getHappiness() == 0 && this.player.getFosterPet().getHunger() == 0 && this.player.getFosterPet().getHygiene() == 0) && this.player.isPlaying)
             {
                 
                 this.player.getFosterPet().decLevelXP();
