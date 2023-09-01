@@ -17,7 +17,8 @@ public class DecrementStatsRunnable implements Runnable
 {
     // Instance variables
     public Player player;
-    public final int TIME_INTERVAL = 60000; // time interval between stat decrements is 1 minute = 60000ms
+    public final int TIME_INTERVAL = 30000; // time interval between stat decrements is 1 minute = 60000ms
+    
     // Constructor
     public DecrementStatsRunnable(Player player)
     {
@@ -41,8 +42,8 @@ public class DecrementStatsRunnable implements Runnable
         // while the player has a foster pet, the player's foster pet's happiness, hunger, and hygience will decrease over time
         while(Game.startThreads){
             while(this.player.hasFosterPet == true)
-            {   
-                
+            {
+
                 try
                 {
                     Thread.sleep(TIME_INTERVAL); // thread will sleep for the allocated time interval
@@ -75,7 +76,6 @@ public class DecrementStatsRunnable implements Runnable
             }
         }
     }
-
     
     /* alertMessage
     
@@ -89,10 +89,5 @@ public class DecrementStatsRunnable implements Runnable
         System.out.println("ALERT! ALERT!\nYour pet needs care!");
         System.out.println("##############################");
 
-    }
-    
-    public void stopThread(){
-        
-    }
-    
+    }    
 }

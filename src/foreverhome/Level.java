@@ -25,7 +25,7 @@ public interface Level {
     public final int INC_LEVELXP_CAP = 40;
     public final int INC_EXP = 10;
     public final int DEC_EXP = 15;
-    public final int MAX_LEVEL = 10;
+    public static final int MAX_LEVEL = 10;
     
     /*
         METHODS
@@ -34,7 +34,7 @@ public interface Level {
     
     public boolean checkLevelForIncLevel();
     
-    public int incLevel();
+    public void incLevel();
   
     public void incLevelXP();
     

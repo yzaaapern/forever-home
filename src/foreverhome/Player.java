@@ -10,15 +10,18 @@ import java.util.Objects;
  *
  * @author yzape
  */
-public class Player {
+public class Player //implements Interact
+{
     
-    private final int INC_DABLOONS = 10;
-    private final int REWARD_DABLOONS = 100;
+    public static final int INC_DABLOONS = 10;
+    public static final int REWARD_DABLOONS = 100;
     private String name;
     public Animal fosterPet;
+    public boolean isPlaying = false;
     public boolean hasFosterPet;
     private int dabloons;
     private FoodInventory foodInventory;
+    private InteractionList interactionList;
     
     public Player(String name){
         this.setName(name);
@@ -56,21 +59,121 @@ public class Player {
         return this.foodInventory;
     }
 
-    public void incDabloons(){
-        if(this.fosterPet.getLevel() == 10 && this.fosterPet.getLevelXP() == this.fosterPet.getLevelXPBar())
+    public void incDabloons(int amount)
+    {
+        int inc_dabloons = this.getDabloons() + amount;
+        this.setDabloons(inc_dabloons);
+    }
+    
+    public void decDabloons(int amount)
+    {
+        int dec_dabloons = this.getDabloons() - amount;
+        if(dec_dabloons >= 0)
         {
-            this.setDabloons(this.getDabloons() + REWARD_DABLOONS);
-        }
-        if(this.fosterPet.checkLevelForIncLevel())
-        {
-            this.setDabloons(this.getDabloons() + INC_DABLOONS);
-
+            this.setDabloons(dec_dabloons);
         }
     }
     
-    public void decDabloons(Food food)
+    public void buyFood(Food food)
     {
-        this.setDabloons(this.getDabloons() - food.getFoodCost());
+        if(this.getDabloons() >= food.getFoodCost())
+        {
+            food.incFoodCount();
+            this.decDabloons(food.getFoodCost());
+        }
+        else
+        {
+            System.out.println("Insufficient Funds.\n");
+        }
+    }
+    
+    public void feedPet(Food food)
+    {
+        if(food.getFoodCount() > 0)
+        {
+            this.getFosterPet().incHunger(food);
+            food.decFoodCount();
+            this.getFosterPet().incLevelXP();
+            this.levelUpReward();
+        }
+        else
+        {
+            System.out.println("Insufficient supply.\n");
+        }
+    }
+    
+    public void giveBath()
+    {
+        this.getFosterPet().incHygiene();
+        this.getFosterPet().incLevelXP();
+        this.levelUpReward();
+    }
+    
+    /*
+        OVERRIDE INTERACT METHODS
+    */
+    
+    /*  givePat method
+    
+    Parameters: None
+    Return: None
+    Description: When the player pats their pet the pet becomes happier and increases pet's xp
+    */
+    
+    public void interactWithPet(Interaction interaction)
+    {
+        if(this.isInteractUnlocked(interaction))
+        {
+            if(interaction instanceof Play)
+            {
+                this.getFosterPet().incHappiness();
+                this.getFosterPet().decHunger();
+                this.getFosterPet().decHygiene();
+            }
+            else if(interaction instanceof Trick)
+            {
+                this.getFosterPet().incHappiness();
+            }
+            else if(interaction instanceof Health)
+            {
+                this.getFosterPet().incHappiness();
+                this.getFosterPet().incHygiene();
+            }
+            this.getFosterPet().incLevelXP();
+            this.levelUpReward();
+        }
+        else
+        {
+            System.out.println("You cannot do this trick yet! " + this.getFosterPet().getName() + " has yet to reach Level " + interaction.getLevelUnlocked() + ".");
+        }
+    }
+    
+    public boolean isInteractUnlocked(Interaction interaction)
+    {
+        if(this.getFosterPet().getLevel() >= interaction.getLevelUnlocked())
+        {
+            return true;
+        }
+        return false;
+    }
+    
+    public void levelUpReward()
+    {
+        if(this.getFosterPet().checkLevelForIncLevel())
+        {
+            this.getFosterPet().incLevel();
+            this.getFosterPet().levelUpMessage();
+            if(this.getFosterPet().getLevel() < Animal.MAX_LEVEL)
+            {
+                this.incDabloons(Player.INC_DABLOONS);
+            }
+            else
+            {
+                this.incDabloons(Player.REWARD_DABLOONS);
+            }
+            
+        }
+        
     }
     
     @Override
