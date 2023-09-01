@@ -176,15 +176,12 @@ public class ForeverHome {
                 
                 // player name is the first part of the array
                 String playerName = userAndFoodInventory[PLAYER_NAME_INDEX];
-//                System.out.println(playerName);
                 
                 // food inventory info string is the second part of the array
                 String foodInventoryInfo = userAndFoodInventory[FOOD_INVENTORY_INDEX];
-//                System.out.println(foodInventoryInfo);
                 
                 // check if user is a user in the system
                 player = this.checkUser(playerName);
-//                System.out.println(player);
                 
                 // food inventory info array is further separated into food inventory data which is split with ":"
                 foodInventory = foodInventoryInfo.split(mediumDelim);
@@ -193,7 +190,6 @@ public class ForeverHome {
                 {
                     for(int i = 0; i < foodInventory.length; i++)
                     {
-//                        System.out.println(foodInventory[i]);
                         // an element of food data consists of a food name [0] and food count [1]
                         foodData = foodInventory[i].split(smallDelim);
                         foodName = foodData[FOOD_NAME_INDEX];
@@ -202,29 +198,7 @@ public class ForeverHome {
                         if(foodName.equals(player.getFoodInventory().getFoods()[i].getFoodName()))
                         {
                             player.getFoodInventory().getFoods()[i].setFoodCount(foodCount);
-                        }   
-//                        for(int j = 0; j < foodData.length; j++)
-//                        {
-////                            System.out.println(foodData[j]);
-//                            
-//                            if(j == 0)
-//                            {
-//                                foodName = foodData[j];
-//                                System.out.println(foodName);
-//                            }
-//                            if(j == 1)
-//                            {
-//                                foodCount = Integer.parseInt(foodData[j]);
-//                            }
-////                            foodName = foodData[FOOD_NAME_INDEX];
-////                            foodCount = Integer.parseInt(foodData[FOOD_COUNT_INDEX]);
-//                        }
-    //                    
-    //                    
-    //                    if(foodName.equalsIgnoreCase(player.getFoodInventory().getFoods()[i].getFoodName()))
-    //                    {
-    //                        player.getFoodInventory().getFoods()[i].setFoodCount(foodCount);
-    //                    }                  
+                        }                 
                     }
                 }
             }
@@ -271,8 +245,12 @@ public class ForeverHome {
                 users.add(confirmPlayer);
                 Game game = new Game(confirmPlayer);
                 confirmPlayer.hasFosterPet = true;
-
             }
+            else if (p != null && !p.hasFosterPet && !p.isPlaying && users.contains(p))
+            {
+                return;
+            }
+            
         } else if (startInputNum == 2) {
             if (p != null && p.hasFosterPet && users.contains(p)) {
                 System.out.println("You chose to sign up with " + p.getName()
@@ -290,6 +268,10 @@ public class ForeverHome {
                 users.add(confirmPlayer);
                 Game game = new Game(confirmPlayer);
                 confirmPlayer.hasFosterPet = true;
+            }
+            else if (p != null && !p.hasFosterPet && !p.isPlaying && users.contains(p))
+            {
+                return;
             }
 
         } else {

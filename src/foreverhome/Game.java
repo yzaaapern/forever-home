@@ -24,6 +24,7 @@ public class Game {
 
         //this.startGameMessage();
         this.displayFosterMenu();
+        
 
     }
 
@@ -36,6 +37,8 @@ public class Game {
         //this.startGameMessage();
         this.decStatsThread();
         this.displayPetFosterMenu();
+        
+        
     }
     
     public void displayFosterMenu(){
@@ -44,74 +47,81 @@ public class Game {
         int inputNum = 0;
         String fosterName;
         Animal a;
-        this.player.isPlaying = true; // the user is playing.
+        // this.player.isPlaying = true; // the user is playing.
         
         // Scanner for user input
         Scanner scanner = new Scanner(System.in);
         
-        // Welcome prompt
-        System.out.println("Welcome " + this.player.getName() + " to Forever Home!");
-        
-        // Display user stats
-        System.out.println("Current Stats: ");
-        System.out.println(this.player.toString());
-        
-        // Pick a foster animal prompt
-        System.out.println("Pick an animal that you would like to foster: ");        
-        System.out.println("1. Dog");
-        System.out.println("2. Cat");
-        System.out.println("3. Rat");
-        System.out.println("4. Parrot");
-        System.out.println("5. Chicken");
-        
-        // User inputs a number for which animal they wish to foster
-        inputNum = this.userEnterInput(Animal.NUM_OF_ANIMAL_CLASS);
-        
-        // User names their foster pet
-        do{
-            System.out.print("Give them a name: ");
-            fosterName = scanner.next();
-        }while(fosterName == "" || fosterName == " "); // if the foster name is empty spaces, repeat the prompt. We do not want an empty name
-               
-        // Foster pet is instantiated
-        switch(inputNum){
-            case 1:
-                System.out.println("You chose a dog!");
-                a = new Dog(fosterName);
-                this.player.fosterPet = a;
-                this.player.hasFosterPet = true;
-                break;
-            case 2:
-                System.out.println("You chose a cat!");
-                a = new Cat(fosterName);
-                this.player.fosterPet = a;
-                this.player.hasFosterPet = true;
-                break;
-            case 3: 
-                System.out.println("You chose a rat!");
-                a = new Rat(fosterName);
-                this.player.fosterPet = a;
-                this.player.hasFosterPet = true;
-                break;
-            case 4: 
-                System.out.println("You chose a parrot!");
-                a = new Parrot(fosterName);
-                this.player.fosterPet = a;
-                this.player.hasFosterPet = true;
-                break;
-            case 5: 
-                System.out.println("You chose a chicken!");
-                a = new Chicken(fosterName);
-                this.player.fosterPet = a;
-                this.player.hasFosterPet = true;
-                break;
-            default: break;
+        if(this.player.isPlaying)
+        {
+            // Welcome prompt
+            System.out.println("Welcome " + this.player.getName() + " to Forever Home!");
+
+            // Display user stats
+            System.out.println("Current Stats: ");
+            System.out.println(this.player.toString());
+
+            // Pick a foster animal prompt
+            System.out.println("Pick an animal that you would like to foster: ");        
+            System.out.println("1. Dog");
+            System.out.println("2. Cat");
+            System.out.println("3. Rat");
+            System.out.println("4. Parrot");
+            System.out.println("5. Chicken");
+
+            // User inputs a number for which animal they wish to foster
+            inputNum = this.userEnterInput(Animal.NUM_OF_ANIMAL_CLASS);
+
+            // User names their foster pet
+            do{
+                System.out.print("Give them a name: ");
+                fosterName = scanner.next();
+            }while(fosterName == "" || fosterName == " "); // if the foster name is empty spaces, repeat the prompt. We do not want an empty name
+
+            // Foster pet is instantiated
+            switch(inputNum){
+                case 1:
+                    System.out.println("You chose a dog!");
+                    a = new Dog(fosterName);
+                    this.player.fosterPet = a;
+                    this.player.hasFosterPet = true;
+                    break;
+                case 2:
+                    System.out.println("You chose a cat!");
+                    a = new Cat(fosterName);
+                    this.player.fosterPet = a;
+                    this.player.hasFosterPet = true;
+                    break;
+                case 3: 
+                    System.out.println("You chose a rat!");
+                    a = new Rat(fosterName);
+                    this.player.fosterPet = a;
+                    this.player.hasFosterPet = true;
+                    break;
+                case 4: 
+                    System.out.println("You chose a parrot!");
+                    a = new Parrot(fosterName);
+                    this.player.fosterPet = a;
+                    this.player.hasFosterPet = true;
+                    break;
+                case 5: 
+                    System.out.println("You chose a chicken!");
+                    a = new Chicken(fosterName);
+                    this.player.fosterPet = a;
+                    this.player.hasFosterPet = true;
+                    break;
+                default: break;
+            }
+
+            this.decStatsThread();
+
+            // Display the Pet Foster Menu
+            this.displayPetFosterMenu();
         }
-        
-        this.decStatsThread();
-        
-        // Display the Pet Foster Menu
-        this.displayPetFosterMenu();
+        else
+        {
+            return;
+        }
     }
     
     public void displayPetFosterMenu(){
@@ -178,7 +188,7 @@ public class Game {
                 this.buyFoodMenu(); // open buy food meny
                 break;
             case 5:
-                // If the pet is mad level
+                // If the pet is max level
                 if(this.player.getFosterPet().getLevel() == Animal.MAX_LEVEL)
                 {
                     // display adoption menu
@@ -457,8 +467,10 @@ public class Game {
         else if(inputNum == 2)
             {
                 System.out.println("Thank you for fostering " + this.player.getFosterPet().getName() + ",  they have found their forever home :)");
+                this.startThreads = false;
                 this.player.hasFosterPet = false;
                 this.player.isPlaying = false;
+                this.player.fosterPet = null;
             }
     } 
     /*

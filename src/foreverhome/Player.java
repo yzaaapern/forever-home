@@ -17,7 +17,7 @@ public class Player //implements Interact
     public static final int REWARD_DABLOONS = 100;
     private String name;
     public Animal fosterPet;
-    public boolean isPlaying = false;
+    public boolean isPlaying;
     public boolean hasFosterPet;
     private int dabloons;
     private FoodInventory foodInventory;
