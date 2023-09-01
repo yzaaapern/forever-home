@@ -12,7 +12,7 @@ import java.util.Scanner;
  */
 public class FoodInventory {
     
-    private final int NUM_OF_FOODS = 7;
+    public static final int NUM_OF_FOODS = 7;
     public Food foodForAll;
     public Food kibble;
     public Food cannedFood;
@@ -60,8 +60,22 @@ public class FoodInventory {
             foodInventoryOutput += count + ". " + f.toStringNoCost() + "\n---------------------\n";
             count++;
         }
-        
         return foodInventoryOutput;
+    }
+    
+    public String fileFoodInventoryToString()
+    {
+        String output = "";
+        for(Food f : foods)
+        {
+            output += f.getFoodName() + ":" + f.getFoodCount() + ",";
+        }
+        // Remove the trailing comma
+        if (output.endsWith(",")) 
+        {
+            output = output.substring(0, output.length() - 1);
+        }
+        return output;
     }
     
 }

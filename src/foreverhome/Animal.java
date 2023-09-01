@@ -16,7 +16,7 @@ public abstract class Animal implements Level{
     public static final int NUM_OF_ANIMAL_CLASS = 5;
     private final int INC_STAT = 25; // when a stat is increased it will increase by 25 points
     private final int DEC_STAT = 5; // when a stat is decreased it will decrease by 5 points
-    private final int DEFAULT_STAT = 100; // default stat cap for happiness, hygiene, hunger, and level xp 
+    public static final int DEFAULT_STAT = 100; // default stat cap for happiness, hygiene, hunger, and level xp 
     private final int RESET_STAT = 20; // when the animal levels up, it's stats are set to 20
     
     private String name; 
@@ -168,6 +168,11 @@ public abstract class Animal implements Level{
                 + "\n---------------------\n");
     }
 
+    public String fileToString() {
+        return this.name + ":" + this.checkFosterPet(this) + ":" + this.happiness + ":" + this.hunger + ":" + this.hygiene + ":" + this.levelXP + ":" + this.levelXPBar + ":" + this.level;
+    }
+    
+    
     /*
         METHODS
      */
@@ -295,22 +300,24 @@ public abstract class Animal implements Level{
 
     @Override
     public void incLevel() {
-        this.resetLevelXP();
-        this.setLevelXPBar(this.getLevelXPBar() + Level.INC_LEVELXP_CAP);
-        this.setHappiness(RESET_STAT);
-        this.setHunger(RESET_STAT);
-        this.setHygiene(RESET_STAT);
-        
-        int inc_level = this.getLevel() + 1;
-        if(inc_level > Animal.MAX_LEVEL)
+        if(this.checkLevelForIncLevel())
         {
-            this.setLevel(Animal.MAX_LEVEL);
-        }
-        else
-        {
-            this.setLevel(inc_level);
-        }
+            this.resetLevelXP();
+            this.setLevelXPBar(this.getLevelXPBar() + Level.INC_LEVELXP_CAP);
+            this.setHappiness(RESET_STAT);
+            this.setHunger(RESET_STAT);
+            this.setHygiene(RESET_STAT);
 
+            int inc_level = this.getLevel() + 1;
+            if(inc_level > Animal.MAX_LEVEL)
+            {
+                this.setLevel(Animal.MAX_LEVEL);
+            }
+            else
+            {
+                this.setLevel(inc_level);
+            }
+        }
     }
 
     @Override

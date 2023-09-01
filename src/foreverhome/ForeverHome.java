@@ -21,20 +21,22 @@ public class ForeverHome {
 
     public HashSet<Player> users;
     private static final String usersAndPets_FileName = "./resources/userAndPet_data.txt";
+    private static final String usersAndFoodInventory_FileName = "./resources/userAndFoodInventory_data.txt";
     private static String startInput;
     private static String username;
 
     public ForeverHome() {
         this.users = new HashSet<>();
         this.getUsersAndPets(usersAndPets_FileName);
+        this.getUsersAndFoodInventory(usersAndFoodInventory_FileName);
     }
 
     public void start() {
-        
         username = getUsernameAndStartInput();
         Player player = checkUser(username);
         checkUserAndStartInput(player);
         updateUserAndPetInfo(player);
+        this.updateUserAndFoodInventoryInfo(player);
     }
 
     private String getUsernameAndStartInput() {
@@ -97,11 +99,7 @@ public class ForeverHome {
 
                 if (userAndPet.length == 2) {
                     String playerInfo = userAndPet[0];
-//                    System.out.println(playerInfo);
                     String petFosterInfo = userAndPet[1];
-//                    System.out.println(petFosterInfo);
-//                    String foodInventoryInfo = userAndPet[2];
-
                     String[] playerData = playerInfo.split(":");
 
                     if (playerData.length == 2) {
@@ -115,31 +113,6 @@ public class ForeverHome {
                             player.hasFosterPet = false;
                             users.add(player);
 
-//                            if (!foodInventoryInfo.isEmpty()) {
-//                                String[] foods = foodInventoryInfo.split(",");
-//
-//                                for (String food : foods) {
-//                                    String[] foodData = food.split(":");
-//
-//                                    if (foodData.length == 5) {
-//                                        String foodName = foodData[0];
-//                                        int foodType = Integer.parseInt(foodData[1]);
-//                                        int foodValue = Integer.parseInt(foodData[2]);
-//                                        int foodCost = Integer.parseInt(foodData[3]);
-//                                        int foodCount = Integer.parseInt(foodData[4]);
-//
-//                                        if (foodType == 0) {
-//                                            Food newFood = new FoodType0(foodName, foodValue, foodCost, foodCount);
-//                                        } else if (foodType == 1) {
-//                                            Food newFood = new FoodType1(foodName, foodValue, foodCost, foodCount);
-//                                        } else {
-//                                            Food newFood = new FoodType2(foodName, foodValue, foodCost, foodCount);
-//                                        }
-//                                    }
-//
-//                                }
-//
-//                            }
                         } else {
                             String[] petData = petFosterInfo.split(":");
                             if (petData.length == 8) {
@@ -168,6 +141,99 @@ public class ForeverHome {
             e.printStackTrace();
         }
     }
+    
+    private void getUsersAndFoodInventory(String fileName) 
+    {
+        // Variables
+        Player player = null;
+        String[] userAndFoodInventory;
+        String[] foodInventory;
+        String[] foodData;
+        String foodName = "";
+        int foodCount = 0;
+        
+        final int PLAYER_NAME_INDEX = 0;
+        final int FOOD_INVENTORY_INDEX = 1;
+        final int FOOD_NAME_INDEX = 0;
+        final int FOOD_COUNT_INDEX = 1;
+        
+        // Delimiters to split the data in the lines
+        String bigDelim = "\\|";
+        String mediumDelim = ",";
+        String smallDelim = ":";
+        
+        BufferedReader fileReader;
+        try 
+        {
+            fileReader = new BufferedReader(new FileReader(fileName));
+            String line;
+            
+            // while the file reader has not reached the end of the text
+            while ((line = fileReader.readLine()) != null) 
+            {
+                // user and food inventory array is split with a "|"
+                userAndFoodInventory = line.split(bigDelim);
+                
+                // player name is the first part of the array
+                String playerName = userAndFoodInventory[PLAYER_NAME_INDEX];
+//                System.out.println(playerName);
+                
+                // food inventory info string is the second part of the array
+                String foodInventoryInfo = userAndFoodInventory[FOOD_INVENTORY_INDEX];
+//                System.out.println(foodInventoryInfo);
+                
+                // check if user is a user in the system
+                player = this.checkUser(playerName);
+//                System.out.println(player);
+                
+                // food inventory info array is further separated into food inventory data which is split with ":"
+                foodInventory = foodInventoryInfo.split(mediumDelim);
+                
+                if(foodInventory.length == FoodInventory.NUM_OF_FOODS)
+                {
+                    for(int i = 0; i < foodInventory.length; i++)
+                    {
+//                        System.out.println(foodInventory[i]);
+                        // an element of food data consists of a food name [0] and food count [1]
+                        foodData = foodInventory[i].split(smallDelim);
+                        foodName = foodData[FOOD_NAME_INDEX];
+                        foodCount = Integer.parseInt(foodData[FOOD_COUNT_INDEX]);
+                        
+                        if(foodName.equals(player.getFoodInventory().getFoods()[i].getFoodName()))
+                        {
+                            player.getFoodInventory().getFoods()[i].setFoodCount(foodCount);
+                        }   
+//                        for(int j = 0; j < foodData.length; j++)
+//                        {
+////                            System.out.println(foodData[j]);
+//                            
+//                            if(j == 0)
+//                            {
+//                                foodName = foodData[j];
+//                                System.out.println(foodName);
+//                            }
+//                            if(j == 1)
+//                            {
+//                                foodCount = Integer.parseInt(foodData[j]);
+//                            }
+////                            foodName = foodData[FOOD_NAME_INDEX];
+////                            foodCount = Integer.parseInt(foodData[FOOD_COUNT_INDEX]);
+//                        }
+    //                    
+    //                    
+    //                    if(foodName.equalsIgnoreCase(player.getFoodInventory().getFoods()[i].getFoodName()))
+    //                    {
+    //                        player.getFoodInventory().getFoods()[i].setFoodCount(foodCount);
+    //                    }                  
+                    }
+                }
+            }
+        }
+        catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
+    }
 
     public Player checkUser(String username) {
         Player p = null;
@@ -179,6 +245,10 @@ public class ForeverHome {
             }
         }
 
+        if (p == null) {
+            p = new Player(username);
+        }
+
         return p;
     }
 
@@ -186,37 +256,40 @@ public class ForeverHome {
         int startInputNum = Integer.parseInt(startInput);
         Player confirmPlayer = p;
         if (startInputNum == 1) {
-            if (p != null && p.hasFosterPet) {
+            if (p != null && p.hasFosterPet && users.contains(p)) {
                 System.out.println("We have found your name in our file system! You have an existing foster pet, named: " + p.fosterPet.getName()
                         + ".\nIs this you? ");
                 confirmUserIdentity(confirmPlayer);
-            } else if (p != null && !p.hasFosterPet) {
+            } else if (p != null && !p.hasFosterPet && users.contains(p)) {
                 System.out.println("We have found your name in our file system! However, it seems like you do not have an existing foster."
                         + ".\nIs this you? ");
                 confirmUserIdentity(confirmPlayer);
-            } else {
+            } else if (p != null && !p.hasFosterPet && !users.contains(p)) {
                 System.out.println("Your name is not found within our records. That's okay though!"
                         + "\nStarting a new game of Forever Home...");
                 confirmPlayer = new Player(username);
                 users.add(confirmPlayer);
                 Game game = new Game(confirmPlayer);
+                confirmPlayer.hasFosterPet = true;
+
             }
         } else if (startInputNum == 2) {
-            if (p != null && p.hasFosterPet) {
+            if (p != null && p.hasFosterPet && users.contains(p)) {
                 System.out.println("You chose to sign up with " + p.getName()
                         + ".\nThis name exists within our file system, with a foster pet named: " + p.fosterPet.getName()
                         + ".\nIs this really you? ");
                 confirmUserIdentity(confirmPlayer);
-            } else if (p != null && !p.hasFosterPet) {
+            } else if (p != null && !p.hasFosterPet && users.contains(p)) {
                 System.out.println("You chose to sign up with " + p.getName()
                         + ".\nThis name exists within our file system, but you don't seem to have a foster pet."
                         + ".\nIs this really you? ");
                 confirmUserIdentity(confirmPlayer);
-            } else {
+            } else if (p != null && !p.hasFosterPet && !users.contains(p)) {
                 System.out.println("Signing you up for a new game of Forever Home!");
                 confirmPlayer = new Player(username);
                 users.add(confirmPlayer);
                 Game game = new Game(confirmPlayer);
+                confirmPlayer.hasFosterPet = true;
             }
 
         } else {
@@ -266,42 +339,46 @@ public class ForeverHome {
 
     public void updateUserAndPetInfo(Player p) {
         Player modifiedPlayer = p;
-        
-        if (modifiedPlayer == null){
+        if (modifiedPlayer == null) {
             return;
         }
-        if (users.contains(modifiedPlayer)) {
-            users.remove(modifiedPlayer);
-            users.add(modifiedPlayer);
-            System.out.println(modifiedPlayer.fileToString());
-        } else {
-            users.add(modifiedPlayer);
-            System.out.println(modifiedPlayer.fileToString());
 
+        for(Player player : users){
+            if(modifiedPlayer.getName().equals(player.getName())){
+                users.remove(player);
+                users.add(modifiedPlayer);
+                break;
+            }
+            else{
+                users.add(modifiedPlayer);
+                break;
+            }
         }
 
-        try{
-             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(usersAndPets_FileName));
-            for(Player player : users){
-                System.out.println(player.fileToString());
-                fileWriter.write(player.fileToString() +'\n');
+        try {
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(usersAndPets_FileName));
+            for (Player player : users) {
+                player.fileUserAndPetToString();
+                fileWriter.write(player.fileUserAndPetToString() + '\n');
             }
             fileWriter.close();
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-//        finally {
-//            try {
-//                if (fileWriter != null) {
-//                    fileWriter.close(); // Close the BufferedWriter in a finally block
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-        
-
+    }
+    
+    public void updateUserAndFoodInventoryInfo(Player p)
+    {
+        try {
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(usersAndFoodInventory_FileName));
+            for (Player player : users) {
+                player.fileUserAndFoodInventoryToString();
+                fileWriter.write(player.fileUserAndFoodInventoryToString() + '\n');
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public Animal checkFosterInstance(int animalType, String petName, int petHappiness, int petHunger, int petHygiene, int petLevelXP, int petLevelXPBar, int petLevel) {
@@ -350,8 +427,7 @@ public class ForeverHome {
 
     public static void main(String[] args) {
         ForeverHome fhGame = new ForeverHome();
-
-        fhGame.start();
+         fhGame.start();
     }
 
 }

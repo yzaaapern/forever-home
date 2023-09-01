@@ -1,0 +1,6 @@
+d|Food for All:5,Kibble:0,Canned Food:0,Veggie Mix:0,Seeds:0,Rainbow Treat:0,Water:100
+Anny|Food for All:5,Kibble:0,Canned Food:0,Veggie Mix:0,Seeds:0,Rainbow Treat:0,Water:100
+y|Food for All:5,Kibble:0,Canned Food:0,Veggie Mix:0,Seeds:0,Rainbow Treat:0,Water:100
+z|Food for All:5,Kibble:0,Canned Food:0,Veggie Mix:0,Seeds:0,Rainbow Treat:0,Water:100
+Bobby|Food for All:5,Kibble:0,Canned Food:0,Veggie Mix:0,Seeds:0,Rainbow Treat:3,Water:100
+yza|Food for All:5,Kibble:0,Canned Food:0,Veggie Mix:0,Seeds:0,Rainbow Treat:0,Water:100

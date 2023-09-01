@@ -22,7 +22,7 @@ public class Game {
         this.player = player;
         this.player.isPlaying = true;
 
-        this.startGameMessage();
+        //this.startGameMessage();
         this.displayFosterMenu();
 
     }
@@ -33,9 +33,9 @@ public class Game {
         this.player.isPlaying = true;
         this.player.hasFosterPet = true;
 
-        this.startGameMessage();
+        //this.startGameMessage();
+        this.decStatsThread();
         this.displayPetFosterMenu();
-
     }
     
     public void displayFosterMenu(){
@@ -108,10 +108,7 @@ public class Game {
             default: break;
         }
         
-        // DecrementStatsThread is intantiated
-        this.dsr = new DecrementStatsRunnable(this.player);
-        this.petDecrementStatsThread = new Thread(this.dsr);
-        this.petDecrementStatsThread.start();
+        this.decStatsThread();
         
         // Display the Pet Foster Menu
         this.displayPetFosterMenu();
@@ -120,6 +117,8 @@ public class Game {
     public void displayPetFosterMenu(){
         int numOfOptions = 4;
         int inputNum = 0;
+        
+        
         
         // If the pet is max level, they are ready for adoption
         if(this.player.getFosterPet().getLevel() == Animal.MAX_LEVEL)
@@ -263,19 +262,28 @@ public class Game {
         
         // Displaying store for valid food types of the foster pet
         System.out.println(this.displayValidFood(this.player.getFosterPet().getAnimalFoodType()));
+        System.out.println((this.getValidFoodRange(this.player.getFosterPet().getAnimalFoodType()) + 1) + ". Go back to Pet Foster Menu");
         System.out.println("x -  Go back to Pet Foster Menu");
         
         // User's input number
-        inputNum = this.userEnterInput(this.getValidFoodRange(this.player.getFosterPet().getAnimalFoodType()));
+        inputNum = this.userEnterInput(this.getValidFoodRange(this.player.getFosterPet().getAnimalFoodType()) + 1);
         
         // If the player is still playing/has not pressed x to exit the game
         if(this.player.isPlaying)
         {
-            // Player is getting from list of viable foods
-            chosenFood = this.getValidFood(this.player.getFosterPet().getAnimalFoodType(), inputNum);
+            if(inputNum == (this.getValidFoodRange(this.player.getFosterPet().getAnimalFoodType()) + 1))
+            {
+                System.out.println("Returning back to Pet Foster Menu.");
+                this.displayPetFosterMenu();
+            }
+            else
+            {
+                // Player is getting from list of viable foods
+                chosenFood = this.getValidFood(this.player.getFosterPet().getAnimalFoodType(), inputNum);
 
-            // Player buys pet food
-            this.player.buyFood(chosenFood);
+                // Player buys pet food
+                this.player.buyFood(chosenFood);
+            }
         }
     }
     
@@ -291,19 +299,28 @@ public class Game {
         
         // Display player's stock of valid food types of their foster pet
         System.out.println(this.displayValidFood(this.player.getFosterPet().getAnimalFoodType()));
+        System.out.println((this.getValidFoodRange(this.player.getFosterPet().getAnimalFoodType()) + 1) + ". Go back to Pet Foster Menu");
         System.out.println("x -  Go back to Pet Foster Menu");
         
         // User's input number
-        inputNum = this.userEnterInput(this.getValidFoodRange(this.player.getFosterPet().getAnimalFoodType()));
+        inputNum = this.userEnterInput(this.getValidFoodRange(this.player.getFosterPet().getAnimalFoodType()) + 1);
         
         // If the player is still playing/has not pressed x to exit the game
         if(this.player.isPlaying)
         {
-            // Player feeding pet from list of viable foods
-            chosenFood = this.getValidFood(this.player.getFosterPet().getAnimalFoodType(), inputNum);
+            if(inputNum == (this.getValidFoodRange(this.player.getFosterPet().getAnimalFoodType()) + 1))
+            {
+                System.out.println("Returning back to Pet Foster Menu.");
+                this.displayPetFosterMenu();
+            }
+            else
+            {
+                // Player feeding pet from list of viable foods
+                chosenFood = this.getValidFood(this.player.getFosterPet().getAnimalFoodType(), inputNum);
 
-            // Player feeds pet
-            this.player.feedPet(chosenFood);
+                // Player feeds pet
+                this.player.feedPet(chosenFood);
+            }
         }
     }
     
@@ -389,9 +406,39 @@ public class Game {
 
     }
     
-    private void endGameMessage()
-    {
-        System.out.println("Thank you " + this.player.getName() + " for playing ForeverHome, until next time! ");
+    private void decStatsThread() {
+        if (this.startThreads) {
+            this.dsr = new DecrementStatsRunnable(this.player);
+            this.petDecrementStatsThread = new Thread(this.dsr);
+            this.petDecrementStatsThread.start();
+        }
+    }
+    
+    public void endGameMessage() {
+        String[] endGameMessages = {
+            "---------------------",
+            "Preparing the game for shutdown!",
+            "Please do not close or forcefully terminate the program.",
+            "This will take a while...",
+            "Taking you to the End Game Portal...",
+            "##############################\n       ENDING THE GAME        \n##############################",
+            "Your game statistics will be displayed in the following: ",
+            "(P.S. Take your time reading them! It's quite long...)",
+            this.player.toString(),
+            "Don't worry about losing any of your data! All of your progress is stored within a thorough file system.",
+            "That means when you log onto the game next time, you can simply enter your username as it must be unique for every user. ",
+            "##############################\n          GAME ENDED        \n##############################",
+            "\nThank you, " + this.player.getName() + ", for playing Forever Home. We hope to see you again next time. :)"
+        };
+
+        for (String s : endGameMessages) {
+            System.out.println(s);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
     
     public void adoptionMenu()
@@ -431,6 +478,7 @@ public class Game {
             
             if(input.equalsIgnoreCase("x")){
                 this.player.isPlaying = false;
+                this.startThreads = false;
                 this.endGameMessage();
                 break;
             }
@@ -483,6 +531,7 @@ public class Game {
             if(input.equalsIgnoreCase("x"))
                 {
                     this.player.isPlaying = false;
+                    this.startThreads = false;
                     return true;
                 }
             return false;

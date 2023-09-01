@@ -89,24 +89,39 @@ public class Player //implements Interact
     
     public void feedPet(Food food)
     {
-        if(food.getFoodCount() > 0)
+        if(this.getFosterPet().getHunger() < Animal.DEFAULT_STAT)
         {
-            this.getFosterPet().incHunger(food);
-            food.decFoodCount();
+            if(food.getFoodCount() > 0)
+            {
+                this.getFosterPet().incHunger(food);
+                food.decFoodCount();
+                this.getFosterPet().incLevelXP();
+                this.levelUpReward();
+            }
+            else
+            {
+                System.out.println("Insufficient supply.\n");
+            }
+        }
+        else
+        {
+            System.out.println(this.getFosterPet().getName() + " is already full!");
+        }
+        
+    }
+    
+    public void giveBath()
+    {
+        if(this.getFosterPet().getHygiene() < Animal.DEFAULT_STAT)
+        {
+            this.getFosterPet().incHygiene();
             this.getFosterPet().incLevelXP();
             this.levelUpReward();
         }
         else
         {
-            System.out.println("Insufficient supply.\n");
+            System.out.println(this.getFosterPet().getName() + " is already clean!");
         }
-    }
-    
-    public void giveBath()
-    {
-        this.getFosterPet().incHygiene();
-        this.getFosterPet().incLevelXP();
-        this.levelUpReward();
     }
     
     /*
@@ -122,6 +137,7 @@ public class Player //implements Interact
     
     public void interactWithPet(Interaction interaction)
     {
+        
         if(this.isInteractUnlocked(interaction))
         {
             if(interaction instanceof Play)
@@ -139,6 +155,7 @@ public class Player //implements Interact
                 this.getFosterPet().incHappiness();
                 this.getFosterPet().incHygiene();
             }
+
             this.getFosterPet().incLevelXP();
             this.levelUpReward();
         }
@@ -178,19 +195,25 @@ public class Player //implements Interact
     
     @Override
     public String toString(){
-        String displayPet = (this.hasFosterPet == true) ? this.fosterPet.toString() + this.foodInventory.toString(): "No Pet";
+        String displayPet = (this.hasFosterPet == true) ? this.fosterPet.toString() : "No Pet";
         return "---------------------\n" +
                "PLAYER STATS\n" + 
                "Username: " + this.name + 
                "\nDabloons: $" + this.getDabloons() + 
-               "\n" + displayPet;
+               "\n" + displayPet +
+               "\n" + this.foodInventory.toString();
     }
     
     
-    public String fileToString(){
-        String displayPet = (this.hasFosterPet) ? this.fosterPet.toString() : "NoPet";
+    public String fileUserAndPetToString(){
+        String displayPet = (this.hasFosterPet ==  true) ? this.fosterPet.fileToString() : "NoPet";
         return this.name + ":" + this.dabloons 
-             + "|" + this.fosterPet.getName() + ":" + this.fosterPet.checkFosterPet(fosterPet) + ":" + this.fosterPet.getHappiness() + ":" + this.fosterPet.getHunger() + ":" + this.fosterPet.getHygiene() + ":" + this.fosterPet.getLevelXP() + ":" + this.fosterPet.getLevelXPBar() + ":" + this.fosterPet.getLevel();
+             + "|" + displayPet;
+    }
+    
+    public String fileUserAndFoodInventoryToString()
+    {
+        return this.getName() + "|" + this.getFoodInventory().fileFoodInventoryToString();
     }
 
     @Override
