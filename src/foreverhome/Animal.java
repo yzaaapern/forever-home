@@ -4,9 +4,6 @@
  */
 package foreverhome;
 
-import foreverhome.Food;
-import foreverhome.Level;
-
 /**
  *
  * @author yzape
@@ -16,7 +13,7 @@ public abstract class Animal implements Level{
     /*
         INSTANCE AND CONSTANT VARIABLES
     */
-    public static final int NUM_OF_ANIMAL_CLASS = 5;
+    public static final int NUM_OF_ANIMAL_CLASS = 5; // Number of Animal subclasses
     private final int INC_STAT = 25; // when a stat is increased it will increase by 25 points
     private final int DEC_STAT = 5; // when a stat is decreased it will decrease by 5 points
     private final int DEFAULT_STAT = 100; // default stat cap for happiness, hygiene, hunger, and level xp 

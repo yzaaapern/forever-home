@@ -12,13 +12,14 @@ import java.util.Scanner;
  */
 public class FoodInventory {
     
-    private final int NUM_OF_FOODS = 6;
+    private final int NUM_OF_FOODS = 7;
     public Food foodForAll;
     public Food kibble;
     public Food cannedFood;
     public Food veggieMix;
     public Food seeds;
     public Food rainbowTreat;
+    public Food water;
     
     Food[] foods = new Food[NUM_OF_FOODS];
     
@@ -40,6 +41,9 @@ public class FoodInventory {
         
         this.rainbowTreat = new FoodType0("Rainbow Treat", 50, 20, 0);
         this.foods[5] = rainbowTreat;
+        
+        this.water = new FoodType0("Water", 2, 0, 100);
+        this.foods[6] = water;
     }
     
     public Food[] getFoods()
