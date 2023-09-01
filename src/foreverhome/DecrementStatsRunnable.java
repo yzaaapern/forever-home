@@ -18,7 +18,6 @@ public class DecrementStatsRunnable implements Runnable
     // Instance variables
     public Player player;
     public final int TIME_INTERVAL = 60000; // time interval between stat decrements is 1 minute = 60000ms
-    
     // Constructor
     public DecrementStatsRunnable(Player player)
     {
@@ -40,34 +39,43 @@ public class DecrementStatsRunnable implements Runnable
     public void run()
     {
         // while the player has a foster pet, the player's foster pet's happiness, hunger, and hygience will decrease over time
-        while(this.player.hasFosterPet == true)
-        {   
-            try
-            {
-                Thread.sleep(TIME_INTERVAL); // thread will sleep for the allocated time interval
-            }
-            catch(InterruptedException e)
-            {
-                System.err.println(e);
-            }
-            
-            // pet is being neglected, so the level xp will decrease and alert message will be displayed
-            if(this.player.getFosterPet().getHappiness() == 0 && this.player.getFosterPet().getHunger() == 0 && this.player.getFosterPet().getHygiene() == 0)
-            {
+        while(Game.startThreads){
+            while(this.player.hasFosterPet == true)
+            {   
                 
-                this.player.getFosterPet().decLevelXP();
-                this.alertMessage();
-            }
-            
-            // pet is not being neglected, stats will decrease because it will still get less happy/hungry/dirty.
-            else
-            {
-                this.player.getFosterPet().decHappiness(); 
-                this.player.getFosterPet().decHunger();
-                this.player.getFosterPet().decHygiene();
+                try
+                {
+                    Thread.sleep(TIME_INTERVAL); // thread will sleep for the allocated time interval
+                }
+                catch(InterruptedException e)
+                {
+                    System.err.println(e);
+                }
+                finally{
+                    if(!Game.startThreads){
+                        break;
+                    }
+                    // pet is being neglected, so the level xp will decrease and alert message will be displayed
+                    if(this.player.getFosterPet().getHappiness() == 0 && this.player.getFosterPet().getHunger() == 0 && this.player.getFosterPet().getHygiene() == 0)
+                    {
+
+                        this.player.getFosterPet().decLevelXP();
+                        this.alertMessage();
+                    }
+
+                    // pet is not being neglected, stats will decrease because it will still get less happy/hungry/dirty.
+                    else
+                    {
+                        this.player.getFosterPet().decHappiness(); 
+                        this.player.getFosterPet().decHunger();
+                        this.player.getFosterPet().decHygiene();
+                    }
+                }
+
             }
         }
     }
+
     
     /* alertMessage
     
@@ -76,9 +84,15 @@ public class DecrementStatsRunnable implements Runnable
     Description: Prints a warning message.
     */
     
-    public void alertMessage()
-    {
-        System.out.println("ALERT! ALERT! \nYour pet needs care! Their xp is decreasing! ");
+    public void alertMessage(){
+        System.out.println("\n##############################");
+        System.out.println("ALERT! ALERT!\nYour pet needs care!");
+        System.out.println("##############################");
+
+    }
+    
+    public void stopThread(){
+        
     }
     
 }

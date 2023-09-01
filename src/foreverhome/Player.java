@@ -4,6 +4,8 @@
  */
 package foreverhome;
 
+import java.util.Objects;
+
 /**
  *
  * @author yzape
@@ -24,13 +26,6 @@ public class Player {
         this.hasFosterPet = false;
         this.dabloons = 20;
         this.foodInventory = new FoodInventory();
-    }
-    
-    public Player(String name, Animal fosterPet, FoodInventory foodInventory){
-        this.setName(name);
-        this.setFosterPet(fosterPet);
-        this.hasFosterPet = true;
-        this.foodInventory = foodInventory;
     }
     
     public void setName(String name){
@@ -78,14 +73,40 @@ public class Player {
         this.setDabloons(this.getDabloons() - food.getFoodCost());
     }
     
+    @Override
     public String toString(){
         String displayPet = (this.hasFosterPet == true) ? this.fosterPet.toString() + this.foodInventory.toString(): "No Pet";
         return "---------------------\n" +
                "PLAYER STATS\n" + 
                "Username: " + this.name + 
                "\nDabloons: $" + this.getDabloons() + 
-               "\n---------------------\n" + displayPet;
+               "\n" + displayPet;
+    }
+    
+    
+    public String fileToString(){
+        String displayPet = (this.hasFosterPet) ? this.fosterPet.toString() : "NoPet";
+        return this.name + ":" + this.dabloons 
+             + "|" + this.fosterPet.getName() + ":" + this.fosterPet.checkFosterPet(fosterPet) + ":" + this.fosterPet.getHappiness() + ":" + this.fosterPet.getHunger() + ":" + this.fosterPet.getHygiene() + ":" + this.fosterPet.getLevelXP() + ":" + this.fosterPet.getLevelXPBar() + ":" + this.fosterPet.getLevel();
     }
 
+    @Override
+    public int hashCode(){
+        return Objects.hash(name);
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(this == o){
+            return true;
+        }
+        
+        if(o == null || getClass() != o.getClass()){
+            return false;
+        }
+        
+        Player otherPlayer = (Player) o;
+        return Objects.equals(this.name, otherPlayer.name);
+    }
 
 }
