@@ -17,7 +17,7 @@ public class Test
 //        cat.setLevel(5);
         // player1.setDabloons(1000);
         
-        Game game = new Game(player1, cat);      
+        Game game = new Game(player1);      
 //        Game game = new Game(player1);      
         
     }

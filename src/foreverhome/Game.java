@@ -5,13 +5,15 @@
 package foreverhome;
 
 import java.util.Scanner;
+
 /**
  *
  * @author yzape
  */
 public class Game {
-    private final Game game = null;
+
     private final Player player;
+    public static volatile boolean startThreads = true;
     public DecrementStatsRunnable dsr;
     public Thread petDecrementStatsThread;
     InteractionList interactionList = new InteractionList();
@@ -19,22 +21,21 @@ public class Game {
     public Game(Player player){
         this.player = player;
         this.player.isPlaying = true;
+
+        this.startGameMessage();
         this.displayFosterMenu();
-        
+
     }
-    
-    public Game(Player player, Animal fosterPet){
+
+    public Game(Player player, Animal fosterPet) {
         this.player = player;
         this.player.fosterPet = fosterPet;
         this.player.isPlaying = true;
         this.player.hasFosterPet = true;
-        
-        this.dsr = new DecrementStatsRunnable(this.player);
-        this.petDecrementStatsThread = new Thread(this.dsr);
-        this.petDecrementStatsThread.start();
-        
+
+        this.startGameMessage();
         this.displayPetFosterMenu();
-        
+
     }
     
     public void displayFosterMenu(){
@@ -365,6 +366,27 @@ public class Game {
             }
         }
         return validFoodRange;
+    }
+    
+    public void startGameMessage() {
+        String[] startGameMessages = {
+            "##############################\n      LAUNCHING THE GAME      \n##############################",
+            "3...",
+            "2...",
+            "1...",
+            "##############################\n         GAME STARTED         \n##############################\n",
+            "---------------------\n"
+        };
+
+        for (String s : startGameMessages) {
+            System.out.println(s);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
+
     }
     
     private void endGameMessage()

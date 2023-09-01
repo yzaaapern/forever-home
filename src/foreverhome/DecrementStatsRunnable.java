@@ -40,7 +40,7 @@ public class DecrementStatsRunnable implements Runnable
     public void run()
     {
         // while the player has a foster pet, the player's foster pet's happiness, hunger, and hygience will decrease over time
-        while(this.player.isPlaying && player.hasFosterPet)
+        while(this.player.isPlaying)
         {   
             try
             {
@@ -78,7 +78,7 @@ public class DecrementStatsRunnable implements Runnable
     
     public void alertMessage()
     {
-        System.out.println("\nALERT! ALERT! \nYour pet needs care! Their xp is decreasing! ");
+        System.out.println("ALERT! ALERT! \nYour pet needs care! Their xp is decreasing! ");
     }
     
 }

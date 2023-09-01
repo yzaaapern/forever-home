@@ -12,8 +12,8 @@ public abstract class Animal implements Level{
 
     /*
         INSTANCE AND CONSTANT VARIABLES
-    */
-    public static final int NUM_OF_ANIMAL_CLASS = 5; // Number of Animal subclasses
+     */
+    public static final int NUM_OF_ANIMAL_CLASS = 5;
     private final int INC_STAT = 25; // when a stat is increased it will increase by 25 points
     private final int DEC_STAT = 5; // when a stat is decreased it will decrease by 5 points
     private final int DEFAULT_STAT = 100; // default stat cap for happiness, hygiene, hunger, and level xp 
@@ -21,12 +21,11 @@ public abstract class Animal implements Level{
     
     private String name; 
     private int animalFoodType, happiness, hygiene, hunger, level, levelXP, statBar, levelXPBar;
-    
+
     /*
-        OBJECT CONSTRUCTOR
-    */
-    
-    public Animal(String name){
+        OBJECT CONSTRUCTORS
+     */
+    public Animal(String name) {
         this.setName(name);
         this.setAnimalFoodType(0);
         this.setHappiness(0);
@@ -38,151 +37,157 @@ public abstract class Animal implements Level{
         this.setLevelXPBar(Level.DEFAULT_LEVELXP_CAP);
     }
     
+    public Animal(String name, int happiness, int hunger, int hygiene, int levelXP, int levelXPBar, int level){
+        this.setName(name);
+        this.setAnimalFoodType(0);
+        this.setHappiness(happiness);
+        this.setHygiene(hygiene);
+        this.setHunger(hunger);
+        this.setLevel(level);
+        this.setLevelXP(levelXP);
+        this.setStatBar(DEFAULT_STAT);
+        this.setLevelXPBar(levelXPBar);
+    }
+
     /*
         NAME: SET AND GET METHOD
-    */
-    public void setName(String name){
+     */
+    public void setName(String name) {
         this.name = name;
     }
-    
-    public String getName(){
+
+    public String getName() {
         return this.name;
     }
-    
+
     /*
         ANIMAL FOOD TYPE: SET AND GET METHOD
-    */
-    public void setAnimalFoodType(int animalType){
+     */
+    public void setAnimalFoodType(int animalType) {
         this.animalFoodType = animalType;
     }
-    
-    public int getAnimalFoodType(){
+
+    public int getAnimalFoodType() {
         return this.animalFoodType;
     }
-    
+
     /*
         HAPPINESS: SET AND GET METHOD
-    */
-    public void setHappiness(int happiness){
+     */
+    public void setHappiness(int happiness) {
         this.happiness = happiness;
     }
-    
-    public int getHappiness(){
+
+    public int getHappiness() {
         return this.happiness;
     }
-    
+
     /*
         HUNGER: SET AND GET METHOD
-    */
-    public void setHunger(int hunger){
+     */
+    public void setHunger(int hunger) {
         this.hunger = hunger;
-        
+
     }
-    
-    public int getHunger(){
+
+    public int getHunger() {
         return this.hunger;
     }
-    
+
     /*
         HYGIENE: SET AND GET METHOD
-    */
-    public void setHygiene(int hygiene){
+     */
+    public void setHygiene(int hygiene) {
         this.hygiene = hygiene;
     }
-    
-    public int getHygiene(){
+
+    public int getHygiene() {
         return this.hygiene;
     }
-    
+
     /*
         LEVELXP: SET AND GET METHOD
-    */
-     public void setLevelXP(int levelXP){
-         this.levelXP = levelXP; 
+     */
+    public void setLevelXP(int levelXP) {
+        this.levelXP = levelXP;
     }
-     
-    public int getLevelXP(){
+
+    public int getLevelXP() {
         return this.levelXP;
     }
-    
+
     /*
         LEVEL: SET AND GET METHOD
-    */
-     public void setLevel(int level){
+     */
+    public void setLevel(int level) {
         this.level = level;
     }
-     
-    public int getLevel(){
+
+    public int getLevel() {
         return this.level;
     }
-    
+
     /*
         STATBAR: SET AND GET METHODS
-    */
-    public void setStatBar(int statBar){
+     */
+    public void setStatBar(int statBar) {
         this.statBar = statBar;
     }
-    
-    public int getStatBar(){
+
+    public int getStatBar() {
         return this.statBar;
     }
-    
+
     /*
         LEVELXPBAR: SET AND GET METHODS
-    */
-    public void setLevelXPBar(int levelXPBar){
+     */
+    public void setLevelXPBar(int levelXPBar) {
         this.levelXPBar = levelXPBar;
     }
-    
-    public int getLevelXPBar(){
+
+    public int getLevelXPBar() {
         return this.levelXPBar;
     }
-    
+
     /*
         OVERRIDE TOSTRING METHOD
         Parameters: None
         Return: String
         Description: Returns useful description of the foster pet's stats.
     
-    */
-
+     */
     @Override
-    public String toString(){
-        return ("---------------------\n" +
-                "FOSTER PET STATS" +
-                "\n-Foster Pet Name: " + this.name + 
-                "\n-Level: " + this.level + " and Level XP: " + this.levelXP + "/" + this.levelXPBar +
-                "\n-Hunger: " + this.hunger + "/" + this.statBar +
-                "\n-Hygiene: " + this.hygiene + "/" + this.statBar +
-                "\n-Happiness: " + this.happiness + "/" + this.statBar +
-                "\n---------------------\n");
+    public String toString() {
+        return ("---------------------\n"
+                + "FOSTER PET STATS"
+                + "\n-Foster Pet Name: " + this.name
+                + "\n-Level: " + this.level + " and Level XP: " + this.levelXP + "/" + this.levelXPBar
+                + "\n-Hunger: " + this.hunger + "/" + this.statBar
+                + "\n-Hygiene: " + this.hygiene + "/" + this.statBar
+                + "\n-Happiness: " + this.happiness + "/" + this.statBar
+                + "\n---------------------\n");
     }
-    
+
     /*
         METHODS
-    */
-    
-    /*  incHunger method
+     */
+ /*  incHunger method
     
     Parameters: Food object
     Return: None
     Description: If the pet eats their hunger stat will increase,
     If the increase in hunger is greater than the cap, it will just be set to the cap (you cannot have more hunger points than the max cap)
     Otherwise, the hunger is the hunger + the increase in hunger constant.
-    */
-    
-    public void incHunger(Food food){
+     */
+    public void incHunger(Food food) {
         int inc_hunger = this.hunger + food.getFoodValue();
-        if(inc_hunger > DEFAULT_STAT)
-        {
+        if (inc_hunger > DEFAULT_STAT) {
             this.setHunger(DEFAULT_STAT);
-        }
-        else
-        {
+        } else {
             this.setHunger(inc_hunger);
         }
     }
-    
+
     /*  decHunger method
     
     Parameters: None
@@ -190,21 +195,17 @@ public abstract class Animal implements Level{
     Description: The pet's hunger stat will decrease
     If the decrease in hunger is lower than 0, it will just be set to 0 (you cannot have negative hunger points)
     Otherwise, the hunger is the hunger - decrease in hunger constant.
-    */
-    
-    public void decHunger(){
+     */
+    public void decHunger() {
         int dec_hunger = this.hunger - DEC_STAT;
-        if(dec_hunger < 0)
-        {
+        if (dec_hunger < 0) {
             this.setHunger(0);
-        }
-        else
-        {
+        } else {
             this.setHunger(dec_hunger);
         }
-        
+
     }
-    
+
     /*  incHunger method
     
     Parameters: None
@@ -212,20 +213,16 @@ public abstract class Animal implements Level{
     Description: Pet's happiness stat increases
     If the increase in happiness is greater than the cap, it will just be set to the cap (you cannot have more happiness points than the max cap)
     Otherwise, the happiness is the happiness + the increase in happiness constant.
-    */
-    
-    public void incHappiness(){
+     */
+    public void incHappiness() {
         int inc_happiness = this.happiness + INC_STAT;
-        if(inc_happiness > DEFAULT_STAT)
-        {
+        if (inc_happiness > DEFAULT_STAT) {
             this.setHappiness(DEFAULT_STAT);
-        }
-        else
-        {
+        } else {
             this.setHappiness(inc_happiness);
         }
     }
-    
+
     /*  decHappiness method
     
     Parameters: None
@@ -233,20 +230,16 @@ public abstract class Animal implements Level{
     Description: The pet's happiness stat will decrease
     If the decrease in happiness is lower than 0, it will just be set to 0 (you cannot have negative happiness points)
     Otherwise, the happiness is the happiness - decrease in happiness constant.
-    */
-    
-    public void decHappiness(){
+     */
+    public void decHappiness() {
         int dec_happiness = this.happiness - DEC_STAT;
-        if(dec_happiness < 0)
-        {
+        if (dec_happiness < 0) {
             this.setHappiness(0);
-        }
-        else
-        {
+        } else {
             this.setHappiness(dec_happiness);
         }
     }
-    
+
     /*  incHygiene method
     
     Parameters: None
@@ -254,20 +247,16 @@ public abstract class Animal implements Level{
     Description: Pet's hygiene stat increases (this occurs when the pet is bathed)
     If the increase in hygiene is greater than the cap, it will just be set to the cap (you cannot have more hygiene points than the max cap)
     Otherwise, the hygiene is the hygiene + the increase in hygiene constant.
-    */
-    
-    public void incHygiene(){
+     */
+    public void incHygiene() {
         int inc_hygiene = this.hygiene + INC_STAT;
-        if(inc_hygiene > DEFAULT_STAT)
-        {
+        if (inc_hygiene > DEFAULT_STAT) {
             this.setHygiene(DEFAULT_STAT);
-        }
-        else
-        {
+        } else {
             this.setHygiene(inc_hygiene);
         }
     }
-    
+
     /*  decHygiene method
     
     Parameters: None
@@ -275,16 +264,12 @@ public abstract class Animal implements Level{
     Description: The pet's hygiene stat will decrease (normally when playing)
     If the decrease in hygiene is lower than 0, it will just be set to 0 (you cannot have negative hygiene points)
     Otherwise, the hygiene stat is the hygiene - decrease in hygiene constant.
-    */
-    
-    public void decHygiene(){
+     */
+    public void decHygiene() {
         int dec_hygiene = this.hygiene - DEC_STAT;
-        if(dec_hygiene < 0)
-        {
+        if (dec_hygiene < 0) {
             this.setHygiene(0);
-        }
-        else
-        {
+        } else {
             this.setHygiene(dec_hygiene);
         }
     }
@@ -293,16 +278,15 @@ public abstract class Animal implements Level{
 
     /*
         OVERRIDE LEVEL METHODS
-    */
-    
+     */
     @Override
     public boolean checkLevelForInteract(int level) {
         return this.level >= level;
 //        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
     @Override
-    public boolean checkLevelForIncLevel(){
+    public boolean checkLevelForIncLevel() {
         return (this.happiness == this.getStatBar()
                 && this.hunger == this.getStatBar()
                 && this.hygiene == this.getStatBar()
@@ -332,8 +316,7 @@ public abstract class Animal implements Level{
     @Override
     public void incLevelXP() {
         int inc_levelXP = this.levelXP + Level.INC_EXP;
-        if(inc_levelXP > this.levelXPBar)
-        {
+        if (inc_levelXP > this.levelXPBar) {
             this.setLevelXP(this.levelXPBar);
             this.incLevel();
         }
@@ -346,12 +329,9 @@ public abstract class Animal implements Level{
     @Override
     public void decLevelXP() {
         int dec_levelXP = this.levelXP - Level.DEC_EXP;
-        if(dec_levelXP < 0)
-        {
+        if (dec_levelXP < 0) {
             this.setLevelXP(0);
-        }
-        else
-        {
+        } else {
             this.setLevelXP(dec_levelXP);
         }
     }
@@ -366,4 +346,34 @@ public abstract class Animal implements Level{
         System.out.println("LEVEL UP! Congratulations your foster pet, " + this.getName() + " is now LEVEL " + this.getLevel());
     }
     
+    public int checkFosterPet(Animal fosterPet){
+        int animalType = 0;
+
+        if(fosterPet instanceof Dog){
+            animalType = 1;
+            return animalType;
+        }
+
+        else if(fosterPet instanceof Cat){
+            animalType = 2;
+            return animalType;
+        }
+
+        else if(fosterPet instanceof Rat){
+            animalType = 3;
+            return animalType;
+        }
+
+        else if(fosterPet instanceof Parrot){
+            animalType = 4;
+            return animalType;
+        }
+
+        else{
+            animalType = 5;
+            return animalType;
+        }
+
+    }
+
 }
