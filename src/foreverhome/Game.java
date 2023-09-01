@@ -14,7 +14,6 @@ public class Game {
 
     private final Player player;
     public static volatile boolean startThreads = true;
-    public LevelUpRunnable lur;
     public DecrementStatsRunnable dsr;
     public Thread petLevelUpThread, petDecrementStatsThread;
 
