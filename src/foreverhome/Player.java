@@ -178,7 +178,7 @@ public class Player //implements Interact
     
     @Override
     public String toString(){
-        String displayPet = (this.hasFosterPet == true) ? this.fosterPet.toString() + this.foodInventory.toString(): "No Pet";
+        String displayPet = (this.hasFosterPet == true) ? this.fosterPet.toString() + this.foodInventory.toString() : "No Pet";
         return "---------------------\n" +
                "PLAYER STATS\n" + 
                "Username: " + this.name + 
@@ -188,9 +188,9 @@ public class Player //implements Interact
     
     
     public String fileToString(){
-        String displayPet = (this.hasFosterPet) ? this.fosterPet.toString() : "NoPet";
+        String displayPet = (this.hasFosterPet ==  true) ? this.fosterPet.fileToString() : "NoPet";
         return this.name + ":" + this.dabloons 
-             + "|" + this.fosterPet.getName() + ":" + this.fosterPet.checkFosterPet(fosterPet) + ":" + this.fosterPet.getHappiness() + ":" + this.fosterPet.getHunger() + ":" + this.fosterPet.getHygiene() + ":" + this.fosterPet.getLevelXP() + ":" + this.fosterPet.getLevelXPBar() + ":" + this.fosterPet.getLevel();
+             + "|" + displayPet;
     }
 
     @Override

@@ -6,9 +6,11 @@ package foreverhome;
 
 /**
  *
- * @author yzape
+ * @author yzape 
+ * Name: Yza Pernia 
+ * Student ID: 21137984
  */
-public abstract class Animal implements Level{
+public abstract class Animal implements Level {
 
     /*
         INSTANCE AND CONSTANT VARIABLES
@@ -18,8 +20,8 @@ public abstract class Animal implements Level{
     private final int DEC_STAT = 5; // when a stat is decreased it will decrease by 5 points
     private final int DEFAULT_STAT = 100; // default stat cap for happiness, hygiene, hunger, and level xp 
     private final int RESET_STAT = 20; // when the animal levels up, it's stats are set to 20
-    
-    private String name; 
+
+    private String name;
     private int animalFoodType, happiness, hygiene, hunger, level, levelXP, statBar, levelXPBar;
 
     /*
@@ -36,8 +38,8 @@ public abstract class Animal implements Level{
         this.setStatBar(DEFAULT_STAT);
         this.setLevelXPBar(Level.DEFAULT_LEVELXP_CAP);
     }
-    
-    public Animal(String name, int happiness, int hunger, int hygiene, int levelXP, int levelXPBar, int level){
+
+    public Animal(String name, int happiness, int hunger, int hygiene, int levelXP, int levelXPBar, int level) {
         this.setName(name);
         this.setAnimalFoodType(0);
         this.setHappiness(happiness);
@@ -153,7 +155,7 @@ public abstract class Animal implements Level{
         OVERRIDE TOSTRING METHOD
         Parameters: None
         Return: String
-        Description: Returns useful description of the foster pet's stats.
+        Description: Returns useful description of the foster pet and its stats.
     
      */
     @Override
@@ -169,15 +171,28 @@ public abstract class Animal implements Level{
     }
 
     /*
+        fileToString Method
+    
+        Parameters: None
+        Return: String
+        Description: Returns a string representation of the foster pet and its stats, 
+                     which is primarily used to accomodate to the data file that stores each pet's data.
+     */
+    public String fileToString() {
+        return this.name + ":" + this.checkFosterPet(this) + ":" + this.happiness + ":" + this.hunger + ":" + this.hygiene + ":" + this.levelXP + ":" + this.levelXPBar + ":" + this.level;
+    }
+
+    /*
         METHODS
      */
- /*  incHunger method
+
+    /*  incHunger Method
     
-    Parameters: Food object
-    Return: None
-    Description: If the pet eats their hunger stat will increase,
-    If the increase in hunger is greater than the cap, it will just be set to the cap (you cannot have more hunger points than the max cap)
-    Otherwise, the hunger is the hunger + the increase in hunger constant.
+        Parameters: Food object
+        Return: None
+        Description: If the pet eats their hunger stat will increase,
+        If the increase in hunger is greater than the cap, it will just be set to the cap (you cannot have more hunger points than the max cap)
+        Otherwise, the hunger is the hunger + the increase in hunger constant.
      */
     public void incHunger(Food food) {
         int inc_hunger = this.hunger + food.getFoodValue();
@@ -188,13 +203,13 @@ public abstract class Animal implements Level{
         }
     }
 
-    /*  decHunger method
+    /*  decHunger Method
     
-    Parameters: None
-    Return: None
-    Description: The pet's hunger stat will decrease
-    If the decrease in hunger is lower than 0, it will just be set to 0 (you cannot have negative hunger points)
-    Otherwise, the hunger is the hunger - decrease in hunger constant.
+        Parameters: None
+        Return: None
+        Description: The pet's hunger stat will decrease
+        If the decrease in hunger is lower than 0, it will just be set to 0 (you cannot have negative hunger points)
+        Otherwise, the hunger is the hunger - decrease in hunger constant.
      */
     public void decHunger() {
         int dec_hunger = this.hunger - DEC_STAT;
@@ -206,13 +221,13 @@ public abstract class Animal implements Level{
 
     }
 
-    /*  incHunger method
+    /*  incHunger Method
     
-    Parameters: None
-    Return: None
-    Description: Pet's happiness stat increases
-    If the increase in happiness is greater than the cap, it will just be set to the cap (you cannot have more happiness points than the max cap)
-    Otherwise, the happiness is the happiness + the increase in happiness constant.
+        Parameters: None
+        Return: None
+        Description: Pet's happiness stat increases
+        If the increase in happiness is greater than the cap, it will just be set to the cap (you cannot have more happiness points than the max cap)
+        Otherwise, the happiness is the happiness + the increase in happiness constant.
      */
     public void incHappiness() {
         int inc_happiness = this.happiness + INC_STAT;
@@ -223,13 +238,13 @@ public abstract class Animal implements Level{
         }
     }
 
-    /*  decHappiness method
+    /*  decHappiness Method
     
-    Parameters: None
-    Return: None
-    Description: The pet's happiness stat will decrease
-    If the decrease in happiness is lower than 0, it will just be set to 0 (you cannot have negative happiness points)
-    Otherwise, the happiness is the happiness - decrease in happiness constant.
+        Parameters: None
+        Return: None
+        Description: The pet's happiness stat will decrease
+        If the decrease in happiness is lower than 0, it will just be set to 0 (you cannot have negative happiness points)
+        Otherwise, the happiness is the happiness - decrease in happiness constant.
      */
     public void decHappiness() {
         int dec_happiness = this.happiness - DEC_STAT;
@@ -240,13 +255,13 @@ public abstract class Animal implements Level{
         }
     }
 
-    /*  incHygiene method
+    /*  incHygiene Method
     
-    Parameters: None
-    Return: None
-    Description: Pet's hygiene stat increases (this occurs when the pet is bathed)
-    If the increase in hygiene is greater than the cap, it will just be set to the cap (you cannot have more hygiene points than the max cap)
-    Otherwise, the hygiene is the hygiene + the increase in hygiene constant.
+        Parameters: None
+        Return: None
+        Description: Pet's hygiene stat increases (this occurs when the pet is bathed)
+        If the increase in hygiene is greater than the cap, it will just be set to the cap (you cannot have more hygiene points than the max cap)
+        Otherwise, the hygiene is the hygiene + the increase in hygiene constant.
      */
     public void incHygiene() {
         int inc_hygiene = this.hygiene + INC_STAT;
@@ -257,13 +272,13 @@ public abstract class Animal implements Level{
         }
     }
 
-    /*  decHygiene method
+    /*  decHygiene Method
     
-    Parameters: None
-    Return: None
-    Description: The pet's hygiene stat will decrease (normally when playing)
-    If the decrease in hygiene is lower than 0, it will just be set to 0 (you cannot have negative hygiene points)
-    Otherwise, the hygiene stat is the hygiene - decrease in hygiene constant.
+        Parameters: None
+        Return: None
+        Description: The pet's hygiene stat will decrease (normally when playing)
+        If the decrease in hygiene is lower than 0, it will just be set to 0 (you cannot have negative hygiene points)
+        Otherwise, the hygiene stat is the hygiene - decrease in hygiene constant.
      */
     public void decHygiene() {
         int dec_hygiene = this.hygiene - DEC_STAT;
@@ -273,18 +288,30 @@ public abstract class Animal implements Level{
             this.setHygiene(dec_hygiene);
         }
     }
-    
-    
 
     /*
         OVERRIDE LEVEL METHODS
      */
+ /*
+        checkLevelForInteract Method
+    
+        Parameters: int level
+        Return: Boolean value of true or false, depending if the conditional statement was met
+        Description: Returns a boolean value of true or false if the foster pet's level is equal to or greater than the parameter level.
+     */
     @Override
     public boolean checkLevelForInteract(int level) {
         return this.level >= level;
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /*
+        checkLevelForIncLevel Method
+    
+        Parameters: None
+        Return: Boolean value of true or false, depending if the conditional statement was met
+        Description: Returns a boolean value of true or false if the 
+                     foster pet's stats and levelXP is equal to the stat bar and levelXP bar respectively.
+     */
     @Override
     public boolean checkLevelForIncLevel() {
         return (this.happiness == this.getStatBar()
@@ -293,10 +320,20 @@ public abstract class Animal implements Level{
                 && this.levelXP == this.getLevelXPBar());
     }
 
+    /*
+        incLevel Method
+    
+        Parameters: None
+        Return: None
+        Description: If the foster pet's stats and levelXP have reached the maximum value:
+                     - the foster pet's levelXP resets to 0
+                     - the levelXP bar increases by the value of Level class' INC_LEVELXP_CAP
+                     - the foster pet's happiness, hunger, and hygiene resets to the value of RESET_STAT
+                     - the foster pet's level increases, but if the foster pet's level is greater than the value of MAX_LEVEL, then the foster pet's level is set to MAX_LEVEL
+     */
     @Override
     public void incLevel() {
-        if(this.checkLevelForIncLevel())
-        {
+        if (this.checkLevelForIncLevel()) {
             this.resetLevelXP();
             this.setLevelXPBar(this.getLevelXPBar() + Level.INC_LEVELXP_CAP);
             this.setHappiness(RESET_STAT);
@@ -304,30 +341,43 @@ public abstract class Animal implements Level{
             this.setHygiene(RESET_STAT);
 
             int inc_level = this.getLevel() + 1;
-            if(inc_level > Animal.MAX_LEVEL)
-            {
+            if (inc_level > Animal.MAX_LEVEL) {
                 this.setLevel(Animal.MAX_LEVEL);
-            }
-            else
-            {
+            } else {
                 this.setLevel(inc_level);
             }
         }
     }
 
+    /*
+        incLevelXP Method
+    
+        Parameters: None
+        Return: None
+        Description: Increases the foster pet's levelXP by the value of INC_EXP. 
+                     If the incremented levelXP is greater than the levelXP Bar, 
+                     it sets the foster pet's levelXP to the value of the levelXP Bar
+                     and calls the incLevel function.
+     */
     @Override
     public void incLevelXP() {
         int inc_levelXP = this.levelXP + Level.INC_EXP;
         if (inc_levelXP > this.levelXPBar) {
             this.setLevelXP(this.levelXPBar);
             this.incLevel();
-        }
-        else
-        {
+        } else {
             this.setLevelXP(inc_levelXP);
         }
     }
 
+    /*
+        decLevelXP Method
+    
+        Parameters: None
+        Return: None
+        Description: Decreases the foster pet's levelXP by the value of DEC_EXP. 
+                     If the decremented levelXP is less than the 0, it sets the levelXP to 0.
+     */
     @Override
     public void decLevelXP() {
         int dec_levelXP = this.levelXP - Level.DEC_EXP;
@@ -338,40 +388,52 @@ public abstract class Animal implements Level{
         }
     }
 
+    /*
+        resetLevelXP Method
+    
+        Parameters: None
+        Return: None
+        Description: Sets the levelXP to 0.
+     */
     @Override
     public void resetLevelXP() {
         this.setLevelXP(0);
-    }    
+    }
+
+    /*
+        levelUpMessage Method
     
-    public void levelUpMessage()
-    {
+        Parameters: None
+        Return: None
+        Description: Prints a level up message if a player's foster pet successfully levels up.
+     */
+    public void levelUpMessage() {
         System.out.println("LEVEL UP! Congratulations your foster pet, " + this.getName() + " is now LEVEL " + this.getLevel());
     }
+
+    /*
+        checkFosterPet Method
     
-    public int checkFosterPet(Animal fosterPet){
+        Parameters: Animal object
+        Return: int animalType
+        Description: Checks the animal sub-class instance of the parameter foster pet and returns a respective integer number.
+     */
+    public int checkFosterPet(Animal fosterPet) {
         int animalType = 0;
 
-        if(fosterPet instanceof Dog){
+        if (fosterPet instanceof Dog) {
             animalType = 1;
             return animalType;
-        }
-
-        else if(fosterPet instanceof Cat){
+        } else if (fosterPet instanceof Cat) {
             animalType = 2;
             return animalType;
-        }
-
-        else if(fosterPet instanceof Rat){
+        } else if (fosterPet instanceof Rat) {
             animalType = 3;
             return animalType;
-        }
-
-        else if(fosterPet instanceof Parrot){
+        } else if (fosterPet instanceof Parrot) {
             animalType = 4;
             return animalType;
-        }
-
-        else{
+        } else {
             animalType = 5;
             return animalType;
         }

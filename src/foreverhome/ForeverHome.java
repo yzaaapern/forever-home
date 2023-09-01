@@ -30,7 +30,7 @@ public class ForeverHome {
     }
 
     public void start() {
-        
+
         username = getUsernameAndStartInput();
         Player player = checkUser(username);
         checkUserAndStartInput(player);
@@ -179,6 +179,10 @@ public class ForeverHome {
             }
         }
 
+        if (p == null) {
+            p = new Player(username);
+        }
+
         return p;
     }
 
@@ -186,37 +190,40 @@ public class ForeverHome {
         int startInputNum = Integer.parseInt(startInput);
         Player confirmPlayer = p;
         if (startInputNum == 1) {
-            if (p != null && p.hasFosterPet) {
+            if (p != null && p.hasFosterPet && users.contains(p)) {
                 System.out.println("We have found your name in our file system! You have an existing foster pet, named: " + p.fosterPet.getName()
                         + ".\nIs this you? ");
                 confirmUserIdentity(confirmPlayer);
-            } else if (p != null && !p.hasFosterPet) {
+            } else if (p != null && !p.hasFosterPet && users.contains(p)) {
                 System.out.println("We have found your name in our file system! However, it seems like you do not have an existing foster."
                         + ".\nIs this you? ");
                 confirmUserIdentity(confirmPlayer);
-            } else {
+            } else if (p != null && !p.hasFosterPet && !users.contains(p)) {
                 System.out.println("Your name is not found within our records. That's okay though!"
                         + "\nStarting a new game of Forever Home...");
                 confirmPlayer = new Player(username);
                 users.add(confirmPlayer);
                 Game game = new Game(confirmPlayer);
+                confirmPlayer.hasFosterPet = true;
+
             }
         } else if (startInputNum == 2) {
-            if (p != null && p.hasFosterPet) {
+            if (p != null && p.hasFosterPet && users.contains(p)) {
                 System.out.println("You chose to sign up with " + p.getName()
                         + ".\nThis name exists within our file system, with a foster pet named: " + p.fosterPet.getName()
                         + ".\nIs this really you? ");
                 confirmUserIdentity(confirmPlayer);
-            } else if (p != null && !p.hasFosterPet) {
+            } else if (p != null && !p.hasFosterPet && users.contains(p)) {
                 System.out.println("You chose to sign up with " + p.getName()
                         + ".\nThis name exists within our file system, but you don't seem to have a foster pet."
                         + ".\nIs this really you? ");
                 confirmUserIdentity(confirmPlayer);
-            } else {
+            } else if (p != null && !p.hasFosterPet && !users.contains(p)) {
                 System.out.println("Signing you up for a new game of Forever Home!");
                 confirmPlayer = new Player(username);
                 users.add(confirmPlayer);
                 Game game = new Game(confirmPlayer);
+                confirmPlayer.hasFosterPet = true;
             }
 
         } else {
@@ -266,41 +273,34 @@ public class ForeverHome {
 
     public void updateUserAndPetInfo(Player p) {
         Player modifiedPlayer = p;
-        
-        if (modifiedPlayer == null){
+        if (modifiedPlayer == null) {
             return;
         }
-        if (users.contains(modifiedPlayer)) {
-            users.remove(modifiedPlayer);
-            users.add(modifiedPlayer);
-            System.out.println(modifiedPlayer.fileToString());
-        } else {
-            users.add(modifiedPlayer);
-            System.out.println(modifiedPlayer.fileToString());
 
+        for(Player player : users){
+            if(modifiedPlayer.getName().equals(player.getName())){
+                users.remove(player);
+                users.add(modifiedPlayer);
+                break;
+            }
+            else{
+                users.add(modifiedPlayer);
+                break;
+            }
+            
+            
         }
 
-        try{
-             BufferedWriter fileWriter = new BufferedWriter(new FileWriter(usersAndPets_FileName));
-            for(Player player : users){
+        try {
+            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(usersAndPets_FileName));
+            for (Player player : users) {
                 System.out.println(player.fileToString());
-                fileWriter.write(player.fileToString() +'\n');
+                fileWriter.write(player.fileToString() + '\n');
             }
             fileWriter.close();
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-//        finally {
-//            try {
-//                if (fileWriter != null) {
-//                    fileWriter.close(); // Close the BufferedWriter in a finally block
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-        
 
     }
 

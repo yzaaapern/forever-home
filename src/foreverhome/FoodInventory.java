@@ -9,10 +9,16 @@ import java.util.Scanner;
 /**
  *
  * @author yzape
+ * Name: Yza Pernia
+ * Student ID: 21137984
  */
 public class FoodInventory {
     
+    /*
+        INSTANCE AND CONSTANT VARIABLES
+     */
     private final int NUM_OF_FOODS = 7;
+    
     public Food foodForAll;
     public Food kibble;
     public Food cannedFood;
@@ -23,6 +29,9 @@ public class FoodInventory {
     
     Food[] foods = new Food[NUM_OF_FOODS];
     
+    /*
+        OBJECT CONSTRUCTOR
+     */
     public FoodInventory(){
         this.foodForAll = new FoodType0("Food for All", 10, 6, 5);
         this.foods[0] = foodForAll;
@@ -46,11 +55,25 @@ public class FoodInventory {
         this.foods[6] = water;
     }
     
+    /*
+        getFoods Method
+        
+        Parameter: None
+        Return: Array of Food objects
+        Description: Returns the current food inventory.
+    */
     public Food[] getFoods()
     {
         return this.foods;
     }
     
+    /*
+        OVERRIDE TOSTRING METHOD
+        Parameters: None
+        Return: String
+        Description: Returns useful description of the food inventory.
+    
+     */
     @Override
     public String toString(){
         String foodInventoryOutput = "Your current food inventory: \n";
