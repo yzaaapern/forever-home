@@ -24,6 +24,8 @@ public abstract class Interaction
         this.interactionDesc = interactionDesc;
     }
 
+    // GET & SET METHODS
+    
     public String getInteractionName() {
         return this.interactionName;
     }
@@ -40,6 +42,13 @@ public abstract class Interaction
     {
         return this.interactionDesc;
     }
+    
+    /* Override toString method
+    
+    Parameters: None
+    Return: String
+    Description: Returns useful description of the interaction
+    */
     
     @Override
     public String toString()

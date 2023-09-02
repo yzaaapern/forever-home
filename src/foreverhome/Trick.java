@@ -8,8 +8,11 @@ package foreverhome;
  *
  * @author annga
  */
+
+// Trick 'is an' interaction
 public class Trick extends Interaction 
 {
+    // constructor
     public Trick(String trickName, int levelUnlocked, String interactionDesc)
     {
         super(trickName, levelUnlocked, "Trick", interactionDesc);

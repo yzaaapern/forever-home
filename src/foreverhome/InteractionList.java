@@ -10,7 +10,8 @@ package foreverhome;
  */
 public class InteractionList 
 {
-    public static final int NUM_OF_INTERACTIONS = 8;
+    // Instance variables & constants
+    public static final int NUM_OF_INTERACTIONS = 8; 
     private Interaction givePat;
     private Interaction playWithFoster;
     private Interaction goPotty;
@@ -20,8 +21,10 @@ public class InteractionList
     private Interaction playDead;
     private Interaction fetch;
     
+    // array
     Interaction[] interactions = new Interaction[NUM_OF_INTERACTIONS];
     
+    // instanciating the interaction list
     public InteractionList()
     {
         this.givePat = new Trick("givePat", 0, "will receive a pat :)");
@@ -50,6 +53,7 @@ public class InteractionList
         
     }
     
+    // Interaction get method
     public Interaction[] getInteractions()
     {
         return this.interactions;

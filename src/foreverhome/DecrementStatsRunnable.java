@@ -12,7 +12,7 @@ public class DecrementStatsRunnable implements Runnable {
     /*
         INSTANCE AND CONSTANT VARIABLES
      */
-    public final int TIME_INTERVAL = 50000; // time interval between stat decrements is 1 minute = 60000ms
+    public final int TIME_INTERVAL = 50000; // time interval between stat decrements is 50 seconds = 50000ms
 
     public Player player;
 

@@ -12,7 +12,9 @@ import java.util.Scanner;
  */
 public class FoodInventory {
     
+    // Instance variables & Constants
     public static final int NUM_OF_FOODS = 7;
+    
     public Food foodForAll;
     public Food kibble;
     public Food cannedFood;
@@ -22,6 +24,10 @@ public class FoodInventory {
     public Food water;
     
     Food[] foods = new Food[NUM_OF_FOODS];
+    
+    /*
+        OBJECT CONSTRUCTOR
+     */  
     
     public FoodInventory(){
         this.foodForAll = new FoodType0("Food for All", 10, 6, 5);
@@ -46,10 +52,28 @@ public class FoodInventory {
         this.foods[6] = water;
     }
     
+    // METHODS
+    
+    /*
+        getFoods Method
+        
+        Parameter: None
+        Return: Array of Food objects
+        Description: Returns the current food inventory.
+    */
+    
     public Food[] getFoods()
     {
         return this.foods;
     }
+    
+    /*  OVERRIDE toString method
+    
+        Parameters: None
+        Return: String
+        Description: Returns useful description of the food inventory.
+    
+     */
     
     @Override
     public String toString(){
@@ -62,6 +86,13 @@ public class FoodInventory {
         }
         return foodInventoryOutput;
     }
+    
+    /*  fileFoodInventoryToString method
+    
+        Parameters: None
+        Return: String
+        Description: Returns a formatted food inventory string for file writing.
+    */
     
     public String fileFoodInventoryToString()
     {
