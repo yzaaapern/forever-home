@@ -31,8 +31,8 @@ public class Game {
         this.player.isPlaying = true;
 
 //        this.startGameMessage();
-        this.displayFosterMenu();
 
+        this.displayFosterMenu();
     }
 
     public Game(Player player, Animal fosterPet) {
@@ -43,8 +43,10 @@ public class Game {
 
 //        this.startGameMessage();
         this.decStatsThread();
-        this.displayPetFosterMenu();
-
+        if(this.player.fosterPet != null && !player.fosterPet.getIsAdopted())
+        {
+            this.displayPetFosterMenu();
+        }
     }
 
     /*
@@ -106,36 +108,33 @@ public class Game {
                 System.out.println("You chose a dog!");
                 a = new Dog(fosterName);
                 this.player.fosterPet = a;
-                this.player.hasFosterPet = true;
                 break;
             case 2:
                 System.out.println("You chose a cat!");
                 a = new Cat(fosterName);
                 this.player.fosterPet = a;
-                this.player.hasFosterPet = true;
                 break;
             case 3:
                 System.out.println("You chose a rat!");
                 a = new Rat(fosterName);
                 this.player.fosterPet = a;
-                this.player.hasFosterPet = true;
                 break;
             case 4:
                 System.out.println("You chose a parrot!");
                 a = new Parrot(fosterName);
                 this.player.fosterPet = a;
-                this.player.hasFosterPet = true;
                 break;
             case 5:
                 System.out.println("You chose a chicken!");
                 a = new Chicken(fosterName);
                 this.player.fosterPet = a;
-                this.player.hasFosterPet = true;
                 break;
             default:
                 break;
         }
-
+        
+        this.player.hasFosterPet = true; // player has a foster pet
+        
         // Calls the thread function that decrements the player's foster pet's stats if they don't take care of it for a specified amount of time.
         this.decStatsThread();
 
@@ -565,10 +564,10 @@ public class Game {
             System.out.println("Thank you for fostering " + this.player.getFosterPet().getName() + ",  they have found their forever home :)");
             this.startThreads = false;
             this.player.fosterPet.setIsAdopted(true);
-            this.player.hasFosterPet = false;
-            // this.player.isPlaying = false;
             this.player.fosterPet = null;
-            // this.endGameMessage();
+            this.player.hasFosterPet = false;
+            this.player.isPlaying = false;
+            this.endGameMessage();
         }
     }
 

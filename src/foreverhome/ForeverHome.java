@@ -67,6 +67,7 @@ public class ForeverHome {
     private String getUsernameAndStartInput() {
         String userName = "";
         int inputNum = 0;
+        int numOfOptions = 3;
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Do you want to:\n"
@@ -83,7 +84,8 @@ public class ForeverHome {
                 }
                 System.out.println("Invalid input. Please try again."); // Prints default error message if the input doesn't meet the required data type
             }
-
+        } while (!isValidInput(startInput, numOfOptions)); // isValidInput function checks if the value of startInput is a valid input
+        
             // User chooses to login            
             if (inputNum == 1) {
                 System.out.println("You chose to log in!");
@@ -108,17 +110,10 @@ public class ForeverHome {
             // User chooses to exit
             else if (inputNum == 3) {
                 System.out.println("You chose to exit! We will not be launching Forever Home.");
-                break;
 
             }
-            
-            // User enters a startInput beyond the given range
-            else {
-                System.out.print("Your choice: ");
-                startInput = scanner.nextLine();
-            }
 
-        } while (!isValidInput(startInput)); // isValidInput function checks if the value of startInput is a valid input
+//        } while (!isValidInput(startInput, numOfOptions)); // isValidInput function checks if the value of startInput is a valid input
 
         return userName; // Returns username if the loop ends
 
@@ -316,7 +311,6 @@ public class ForeverHome {
                 confirmPlayer = new Player(username); // Creates new player
                 users.add(confirmPlayer); // Adds player to HashSet users
                 Game game = new Game(confirmPlayer); // Generates a new game
-                confirmPlayer.hasFosterPet = true;
 
             }
         } else if (startInputNum == 2) { // If startInput is Signup (2)
@@ -339,9 +333,8 @@ public class ForeverHome {
                 confirmPlayer = new Player(username); // Creates new player
                 users.add(confirmPlayer); // Adds player to HashSet users
                 Game game = new Game(confirmPlayer); // Generates a new game
-                confirmPlayer.hasFosterPet = true;
             }
-
+        
         } else {
             return; // If startInput is neither Login (1) or Signup (2) then the function returns
         }
@@ -382,21 +375,26 @@ public class ForeverHome {
                         break;
                     }
                     // If the player has a foster pet
-                    if (player.hasFosterPet) {
+                    else if (player.hasFosterPet) {
                         game = new Game(p, p.fosterPet);
                     }
-                    // If the player doesn't have a foster pet and is/isn't playing
-                    if (!player.hasFosterPet && player.isPlaying || !player.hasFosterPet && !player.isPlaying) {
+                    // If the player doesn't have a foster pet and is playing
+                    else if (!player.hasFosterPet && player.isPlaying) {
                         player.isPlaying = true;
                         game = new Game(p);
+                    }
+                    // If the player doesn't have a foster pet and isn't playing
+                    else if (!player.hasFosterPet && !player.isPlaying)
+                    {
+                        break;
                     }
                     
                     isValid = true; // Breaks the loop because it is a valid input
 
                 } else if (inputNum == 2) { 
                     System.out.println("Is that so?! Well then, redirecting you back to the start...");
-                    start(); // Calls the start() function to reset
                     isValid = true; // Breaks the loop
+                    start(); // Calls the start() function to reset
                 } else { // User entered an inputNum beyond the range
                     System.out.println("Invalid input. Please try again.");
                 }
@@ -496,30 +494,41 @@ public class ForeverHome {
         return a;
     }
 
-    /*
-        isValidInput Method
+    /* isValidInput method
     
-        Parameters: String input
-        Return: Boolean value of true or false 
-        Description: Returns true or false if the input meets a conditional statement as specified below.
+        Parameters: String for user input, int for valid input range
+        Return: boolean, true for valid input, false for invalid input
+        Description: Checks if the user's input is valid.
     */
-    public boolean isValidInput(String input) {
+    private boolean isValidInput(String input, int inputRange) 
+    {
+        // Variables
+        int inputNum = 0;
+        Scanner scanner = new Scanner(System.in);
+        
         try {
-            Integer.parseInt(input);
-        } catch (NumberFormatException ex) {
-
-            if (input.equalsIgnoreCase("x")) {
+            inputNum = Integer.parseInt(input);
+            if (!this.isValidInputRange(inputNum, inputRange)) {
+                System.out.println("Input is out of range.\nPlease try again.");
+                return false;
+            } else {
                 return true;
             }
-
-            if (input == "" || input == " ") {
-                System.out.println("Invalid input.\nPlease try again.");
-                return false;
-            }
-
+        } catch (NumberFormatException ex) {
             System.out.println("Invalid input.\nPlease try again.");
             return false;
-
+        }
+    }
+    
+    /*  isValidInputRange method
+    
+        Parameters: int for input num, int for input range
+        Return: boolean, true for is in range, false for out of range
+        Description: Checks if the user's input number is within a valid range.
+    */
+    private boolean isValidInputRange(int inputNum, int inputRange) {
+        if (inputNum > inputRange || inputNum <= 0) {
+            return false;
         }
         return true;
     }
