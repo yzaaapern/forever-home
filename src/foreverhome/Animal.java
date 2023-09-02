@@ -24,9 +24,6 @@ public abstract class Animal implements Level {
     private String name;
     private int animalFoodType, happiness, hygiene, hunger, level, levelXP, statBar, levelXPBar;
     private boolean isAdopted = false;
-    
-    public DecrementStatsRunnable dsr;
-    public Thread petDecrementStatsThread;
 
     /*
         OBJECT CONSTRUCTORS
